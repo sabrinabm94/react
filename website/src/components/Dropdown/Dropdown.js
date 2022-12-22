@@ -4,7 +4,7 @@ class Dropdown extends Component {
     render() {
         if (this.props.children !== null && this.props.children !== undefined) {
             return (
-                <ul className="dropdown">
+                <ul className="dropdown" data-testid="dropdown-component">
                     <button className={`btn-secondary dropdown-toggle ${this.props.className}`} type="button" id={this.props.id} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {this.props.buttonText}
                     </button>

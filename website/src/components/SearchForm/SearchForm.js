@@ -7,7 +7,7 @@ import Input from "../Form/Input/Input";
 
 const SearchForm = (props) => {
     return (
-        <Form className="search-form">
+        <Form className="search-form" data-testid="search-form-component">
             <div className="row">
                 <div className="col-sm-10">
                     <Input

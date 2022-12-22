@@ -11,6 +11,7 @@ class Textarea extends Component {
                         name={this.props.name}
                         id={this.props.id}
                         placeholder={this.props.placeholder}
+                        data-testid="textarea-component"
                     ></textarea>
                 </div>
             );
@@ -22,6 +23,7 @@ class Textarea extends Component {
                         name={this.props.name}
                         id={this.props.id}
                         placeholder={this.props.placeholder}
+                        data-testid="textarea-component"
                     ></textarea>
                 </div>
             );

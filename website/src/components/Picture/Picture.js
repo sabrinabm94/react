@@ -12,6 +12,7 @@ class Picture extends Component {
                     className={this.props.className}
                     alt={`Image of ${this.props.alt}`}
                     style={style}
+                    data-testid="picture-component"
                 ></picture>
             );
         }

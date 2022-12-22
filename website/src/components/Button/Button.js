@@ -11,6 +11,7 @@ const Button = (props) => {
                 data-target={props.dataTarget}
                 onClick={props.onClick}
                 required={props.required}
+                data-testid="button-component"
             >
                 {props.text}
                 {props.children}
@@ -26,6 +27,7 @@ const Button = (props) => {
                 data-toggle={props.dataToggle}
                 data-target={props.dataTarget}
                 onClick={props.onClick}
+                data-testid="button-component"
             >
                 {props.text}
                 {props.children}

@@ -13,6 +13,7 @@ class Input extends Component {
                         id={this.props.id}
                         placeholder={this.props.placeholder}
                         required={this.props.required}
+                        data-testid="input-component"
                     />
                 </div>
             );
@@ -26,6 +27,7 @@ class Input extends Component {
                         id={this.props.id}
                         placeholder={this.props.placeholder}
                         required={this.props.required}
+                        data-testid="input-component"
                     />
                 </div>
             );

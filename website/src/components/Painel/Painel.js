@@ -17,7 +17,7 @@ class Painel extends Component {
     render() {
         return (
             <>
-            <div className="panel panel-default text-center" id={this.props.dataId}>
+            <div className="panel panel-default text-center" id={this.props.dataId} data-testid="painel-component">
                 <div className="row">
                     <div className="col-sm-2">
                         <DeleteData ref={this.deleteDataComponent} collection={this.props.collection} dataId={this.props.dataId} />

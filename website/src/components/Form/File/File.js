@@ -11,6 +11,7 @@ class File extends Component {
                     accept={this.props.acept}
                     id={this.props.id}
                     placeholder={this.props.placeholder}
+                    data-testid="file-component"
                 />
             </div>
         );

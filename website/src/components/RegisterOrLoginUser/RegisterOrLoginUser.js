@@ -111,7 +111,7 @@ class RegisterOrLoginUser extends Component {
 
     render() {
         return (
-            <form className={this.props.className} id={this.props.id}>
+            <form className={this.props.className} id={this.props.id} data-testid="register-or-login-user-component">
                 {this.props.children}
                 {this.state.error && this.state.error !== null && <Alert type="danger" message={this.state.error} />}
             </form>

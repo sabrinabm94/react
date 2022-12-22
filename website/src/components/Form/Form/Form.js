@@ -120,6 +120,7 @@ class Form extends Component {
                 onSubmit={() => this.sendData(this.props.collection)}
                 className={this.props.className}
                 id={this.props.className}
+                data-testid="form-component"
             >
                 <SetData ref={this.setDataComponent} />
                 {this.props.children}

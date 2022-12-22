@@ -21,10 +21,12 @@ class Carousel extends Component {
 
     render() {
         return (
+            <>
             <div
                 id="myCarousel"
                 className="carousel slide text-center"
                 data-ride="carousel"
+                data-testid="carousel-component"
             >
                 <ol className="carousel-indicators">
                     <>
@@ -103,7 +105,9 @@ class Carousel extends Component {
                     <span className="sr-only">Next</span>
                 </a>
             </div>
+            </>
         );
     }
 }
+
 export default Carousel;

@@ -21,7 +21,7 @@ class PainelSecondary extends Component {
 
     render() {
         return (
-            <div className="panel panel-default text-center">
+            <div className="panel panel-default text-center" data-testid="painelsecondary-component">
                 <div className="panel-heading">
                     <h2 className="title">{this.props.title}</h2>
                 </div>

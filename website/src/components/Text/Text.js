@@ -13,6 +13,7 @@ class Text extends Component {
         return (
             <p
                 className={this.props.className}
+                data-testid="text-component"
                 dangerouslySetInnerHTML={{
                     __html: this.fixBreaklines(this.props.text),
                 }}
