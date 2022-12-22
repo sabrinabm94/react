@@ -38,7 +38,7 @@ class Services extends Component {
                             return (
                                 <div className="col-sm-4" key={key}>
                                     <Card
-                                        iconName={`glyphicon-${data.icon} logo-small`}
+                                        iconName={`${data.icon} logo-small`}
                                         title={data.title}
                                         subtitle={data.subtitle}
                                     />

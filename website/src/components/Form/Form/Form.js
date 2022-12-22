@@ -26,6 +26,7 @@ class Form extends Component {
         e.preventDefault();
 
         if (collection) {
+            console.log(collection);
             let form = {};
             for (const key in e.target) {
                 let element = e.target[Number(key)];

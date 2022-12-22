@@ -54,15 +54,15 @@ class Contact extends Component {
                             parentCallback={this.handleBreaklines}
                         />
                         <p>
-                            <Glyphicon name="glyphicon-map-marker" />{" "}
+                            <Glyphicon name="map-marker" />{" "}
                             {this.state.elements.address}
                         </p>
                         <p>
-                            <Glyphicon name="glyphicon-phone" />{" "}
+                            <Glyphicon name="phone" />{" "}
                             {this.state.elements.phone}
                         </p>
                         <p>
-                            <Glyphicon name="glyphicon-envelope" />{" "}
+                            <Glyphicon name="envelope" />{" "}
                             {this.state.elements.email}
                         </p>
                     </div>

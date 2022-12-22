@@ -79,13 +79,6 @@ website-sabrinabm94.firebaseapp.com
 test@test.com
 Test@2022
 
-
-## To do
-### Admin
-- melhoria na seleção de icones: telas admin de about e service
-https://www.w3schools.com/bootstrap/bootstrap_ref_comp_glyphs.asp
-
-
 # Contact
 Sabrina B. 
 sabrinabm94@gmail.com

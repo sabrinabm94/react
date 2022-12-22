@@ -18,6 +18,7 @@ class About extends Component {
     }
 
     handleGetData = (data) => {
+        console.log(data);
         if (data && data !== null && data !== undefined && data !== "") {
             this.setState({ elements: data });
         }

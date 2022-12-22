@@ -241,10 +241,12 @@ h2 {
 }
 
 input[type="text"],
-textarea {
+textarea,
+select {
     border-radius: 8px;
     border: 1px solid #ccc;
-    padding: 16px;
+    padding: 5px 10px 5px 10px;
+    box-sizing: content-box;
 }
 
 input[type="file"] {
@@ -252,7 +254,8 @@ input[type="file"] {
 }
 
 input,
-.btn {
+.btn,
+select {
     height: 40px;
 }
 
@@ -291,12 +294,22 @@ label:first-letter {
 }
 
 .dropdown-item p {
-    display: inline-block;
     margin-right: 10px;
+}
+
+.icons-dropdown .dropdown-menu li, .dropdown-item p {
+    display: inline-block;
 }
 
 .dropdown .dropdown-toggle {
     margin-left: -40px;
+}
+
+.icons-dropdown .dropdown-menu {
+    min-width: 300px;
+}
+.icons-dropdown .dropdown-menu li {
+    width: 7%;
 }
 
 @keyframes slide {
@@ -344,5 +357,17 @@ label:first-letter {
 @media screen and (max-width: 480px) {
     .logo {
         font-size: 150px;
+    }
+}
+
+@media screen and (min-width: 998px) {
+    .icons-dropdown .dropdown-menu {
+        left: -50%;
+    }
+}
+
+@media screen and (max-width: 998px) {
+    .dropdown {
+        padding-bottom: 20px;
     }
 }

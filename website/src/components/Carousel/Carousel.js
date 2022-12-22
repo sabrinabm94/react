@@ -92,7 +92,7 @@ class Carousel extends Component {
                     role="button"
                     data-slide="prev"
                 >
-                    <Glyphicon name="glyphicon-chevron-left" />
+                    <Glyphicon name="chevron-left" />
                     <span className="sr-only">Previous</span>
                 </a>
                 <a
@@ -101,7 +101,7 @@ class Carousel extends Component {
                     role="button"
                     data-slide="next"
                 >
-                    <Glyphicon name="glyphicon-chevron-right" />
+                    <Glyphicon name="chevron-right" />
                     <span className="sr-only">Next</span>
                 </a>
             </div>

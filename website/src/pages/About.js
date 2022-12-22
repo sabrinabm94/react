@@ -44,7 +44,7 @@ class About extends Component {
                 <div className="row">
                     <div className="col-sm-4">
                         <Glyphicon
-                            name={`glyphicon-${this.state.elements.icon} logo slideanim slide`}
+                            name={`${this.state.elements.icon} logo slideanim slide`}
                         />
                     </div>
                     <div className="col-sm-8">
