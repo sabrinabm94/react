@@ -28,7 +28,7 @@ yarn dev
 http://localhost:3000
 http://localhost:3000/admin
 
-kill -9 $(lsof -ti:3000)
+sudo kill -9 $(lsof -ti:3000)
 
 ## test
 ### npm
