@@ -61,4 +61,9 @@ buck-out/
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
+
+
 .DS_Store
+next-env.d.ts
+.firebase/
+*.cache
