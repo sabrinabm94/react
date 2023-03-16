@@ -1,1 +1,2 @@
-# react
+# Motivation
+A repository to ReactJs projects
