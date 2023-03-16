@@ -1,6 +1,6 @@
 # About
 
-Website made with react
+Website made with react and firebase
 
 # Front dependencies
 
@@ -26,9 +26,9 @@ npm start
 
 yarn dev
 
-http://localhost:3000
+[Localhost:3000](http://localhost:3000)
 
-http://localhost:3000/admin
+[Localhost:3000/admin](http://localhost:3000/admin)
 
 sudo kill -9 $(lsof -ti:3000)
 
@@ -64,23 +64,23 @@ Para controle de autenticação, banco de dados, storage e hospedagem.
 
 ## Console
 
-https://console.firebase.google.com/u/0/?pli=1
+[Link](https://console.firebase.google.com/u/0/?pli=1)
 
 ## Auth
 
-https://console.firebase.google.com/u/0/project/website-sabrinabm94/authentication/users
+[Link](https://console.firebase.google.com/u/0/project/website-sabrinabm94/authentication/users)
 
 ## Database
 
-https://console.firebase.google.com/u/0/project/website-sabrinabm94/database/website-sabrinabm94-default-rtdb/data/~2F
+[Link](https://console.firebase.google.com/u/0/project/website-sabrinabm94/database/website-sabrinabm94-default-rtdb/data/~2F)
 
 ## Storage
 
-https://console.firebase.google.com/project/website-sabrinabm94/storage/website-sabrinabm94.appspot.com/files
+[Link](https://console.firebase.google.com/project/website-sabrinabm94/storage/website-sabrinabm94.appspot.com/files)
 
 ## Hosting
 
-https://console.firebase.google.com/u/0/project/website-sabrinabm94/hosting/sites
+[Link](https://console.firebase.google.com/u/0/project/website-sabrinabm94/hosting/sites)
 
 #### Authentication
 
