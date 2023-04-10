@@ -4,8 +4,11 @@ import Glyphicon from "./Glyphicon";
 
 describe("Glyphicon", () => {
     it("Shoud render the component", () => {
-        render(<Glyphicon name="certificate" />);
-
-        expect(screen.getByTestId("glyphicon-component")).toBeInTheDocument();
+        const data = {
+            name: "certificate"
+        }
+        render(<Glyphicon name={data.name} />);
+        let component = screen.getByTestId("glyphicon-component");
+        expect(component).toBeInTheDocument();
     });
 });

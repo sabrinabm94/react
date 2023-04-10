@@ -19,9 +19,9 @@ describe("SearchForm", () => {
         render(<SearchForm />);
 
         const form = screen.getByRole("form");
-        const button = form.getElementsByClassName("button");
+        const component = form.getElementsByClassName("button");
 
-        expect(button).toBeInTheDocument();
-        expect(button.text()).toBeEqual(buttonText);
+        expect(component).toBeInTheDocument();
+        expect(component.text()).toBeEqual(buttonText);
     });
 });

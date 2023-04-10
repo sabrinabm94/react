@@ -15,11 +15,11 @@ describe("Carousel", () => {
             subtitle: "People",
         },
     ];
-
     it("Shoud render the component", () => {
         render(
             <Carousel elements={data} />
         );
-        expect(screen.getByTestId("card-component")).toBeInTheDocument();
+        let component = screen.getByTestId("card-component");
+        expect(component).toBeInTheDocument();
     });
 });

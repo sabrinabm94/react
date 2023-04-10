@@ -32,9 +32,9 @@ describe("RegisterOrLoginUser", () => {
                 </div>
             </RegisterOrLoginUser>
         );
-
+        let component = screen.getByTestId("register-or-login-user-component");
         expect(
-            screen.getByTestId("register-or-login-user-component")
+            component
         ).toBeInTheDocument();
     });
 });

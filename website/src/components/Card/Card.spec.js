@@ -16,6 +16,7 @@ describe("Card", () => {
             subtitle={data.subtitle}
         />
         );
-        expect(screen.getByTestId("card-component")).toBeInTheDocument();
+        let component = screen.getByTestId("card-component");
+        expect(component).toBeInTheDocument();
     });
 });

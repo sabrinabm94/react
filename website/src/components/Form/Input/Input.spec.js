@@ -3,17 +3,24 @@ import React, { render, screen } from "@testing-library/react";
 import Input from "./Input";
 
 describe("Input", () => {
+    const data = {
+        type: "text",
+        className: "input",
+        name: "name",
+        placeholder: "Name",
+        required: true,
+    };
     it("Shoud render the component", () => {
         render(
             <Input
-                type="text"
-                className="input"
-                name="name"
-                placeholder="name"
-                required={true}
+                type={data.type}
+                className={data.className}
+                name={data.name}
+                placeholder={data.placeholder}
+                required={data.required}
             />
         );
-
-        expect(screen.getByTestId("input-component")).toBeInTheDocument();
+        let component = screen.getByTestId("input-component");
+        expect(component).toBeInTheDocument();
     });
 });

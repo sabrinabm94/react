@@ -20,7 +20,7 @@ describe("Painel", () => {
             subtitle={data.subtitle}
             content={data.content}
         />);
-
-        expect(screen.getByTestId("Painel-component")).toBeInTheDocument();
+        let component = screen.getByTestId("Painel-component");
+        expect(component).toBeInTheDocument();
     });
 });

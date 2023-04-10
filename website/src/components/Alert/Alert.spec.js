@@ -3,28 +3,35 @@ import React, { render, screen } from "@testing-library/react";
 import Alert from "./Alert";
 
 describe("Alert", () => {
-    const message = "Be careful!";
+    const data = {
+       message: "Be careful!",
+       testeId: "alert-component",
+    }
+
     //fit("Shoud render the component", () => {
     it("Shoud render the component", () => {
-        render(<Alert />);
+        render(<Alert type="danger" message={data.message} />);
 
-        expect(screen.getByTestId("alert-component")).toBeInTheDocument();
-        //expect(screen.getByTestId("alert-component")).not.toBeInTheDocument();
+        let component = screen.getByTestId(data.testId);
+
+        expect(component).toBeInTheDocument();
     });
 
     it("Shoud render the component with props", () => {
-        render(<Alert type="danger" message={message} />);
+        render(<Alert type="danger" message={data.message} />);
 
-        expect(screen.getByTestId("alert-component")).toHaveClass("alert alert-danger");
-        expect(screen.getByTestId("alert-component")).not.toHaveClass("alert alert-success");
-        expect(screen.getByText(message)).toBeInTheDocument();
+        let component = screen.getByTestId(data.testId);
+
+        expect(component).toHaveClass("alert alert-danger");
+        expect(component).not.toHaveClass("alert alert-success");
+        expect(screen.getByText(data.message)).toBeInTheDocument();
     });
 
     it("Shoud render the component with the role attribute", () => {
-        render(<Alert message={message} />);
+        render(<Alert type="danger" message={data.message} />);
+        
+        let component = screen.getByTestId(data.testId);
 
-        expect(screen.getByTestId("alert-component")).toHaveAttribute("role").toBe("alert");
-        //expect(container).toHaveAttribute('src', imageUrl);
-        //expect(screen.getByText('Institucional')).not.toBeEmptyDOMElement();
+        expect(component).toHaveAttribute("role").toBe("alert");
     });
 });

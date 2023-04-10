@@ -10,11 +10,10 @@ describe("Picture", () => {
             className: "picture",
             alt: "picture",
         };
-
         render(
             <Picture url={data.url} className={data.className} alt={data.alt} />
         );
-
-        expect(screen.getByTestId("picture-component")).toBeInTheDocument();
+        let component = screen.getByTestId("picture-component");
+        expect(component).toBeInTheDocument();
     });
 });

@@ -13,7 +13,6 @@ describe("Dropdown", () => {
             text: "Item 2",
         },
     ];
-
     it("Shoud render the component", () => {
         render(
             <Dropdown className="dropdown" id="dropdown" buttonText="Dropdown">
@@ -35,6 +34,7 @@ describe("Dropdown", () => {
                 </>
             </Dropdown>
         );
-        expect(screen.getByTestId("dropdown-component")).toBeInTheDocument();
+        let component = screen.getByTestId("dropdown-component");
+        expect(component).toBeInTheDocument();
     });
 });

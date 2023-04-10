@@ -28,7 +28,7 @@ describe("Form", () => {
                 </div>
             </Form>
         );
-
-        expect(screen.getByTestId("form-component")).toBeInTheDocument();
+        let component = screen.getByTestId("form-component");
+        expect(component).toBeInTheDocument();
     });
 });

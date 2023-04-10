@@ -16,7 +16,7 @@ describe("Thumbnail", () => {
                 subtitle={data.subtitle}
             />
         );
-
-        expect(screen.getByTestId("thumbnail-component")).toBeInTheDocument();
+        let component = screen.getByTestId("thumbnail-component");
+        expect(component).toBeInTheDocument();
     });
 });
