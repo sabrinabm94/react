@@ -9,7 +9,7 @@ import Pages from "./pages/Pages";
 class App extends Component {
     render() {
         return (
-            <Router>
+            <Router data-testid="button-component">
                 <div className="app">
                     <Header />
                     <main className="main">

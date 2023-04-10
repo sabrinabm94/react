@@ -12,15 +12,15 @@ describe("PainelSecondary", () => {
             content: "Look to this painel"
         }
     ];
-    // it("Shoud render the component", () => {
-    //     render(<PainelSecondary
-    //         collection={collection}
-    //         dataId={data.id}
-    //         title={data.title}
-    //         subtitle={data.subtitle}
-    //         content={data.content}
-    //     />);
+    it("Shoud render the component", () => {
+        render(<PainelSecondary
+            collection={collection}
+            dataId={data.id}
+            title={data.title}
+            subtitle={data.subtitle}
+            content={data.content}
+        />);
 
-    //     expect(screen.getByTestId("painel-secondary-component")).toBeInTheDocument();
-    // });
+        expect(screen.getByTestId("painel-secondary-component")).toBeInTheDocument();
+    });
 });

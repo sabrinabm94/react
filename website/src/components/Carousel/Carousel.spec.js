@@ -16,10 +16,10 @@ describe("Carousel", () => {
         },
     ];
 
-    // it("Shoud render the component", () => {
-    //     render(
-    //         <Carousel elements={data} />
-    //     );
-    //     expect(screen.getByTestId("card-component")).toBeInTheDocument();
-    // });
+    it("Shoud render the component", () => {
+        render(
+            <Carousel elements={data} />
+        );
+        expect(screen.getByTestId("card-component")).toBeInTheDocument();
+    });
 });
