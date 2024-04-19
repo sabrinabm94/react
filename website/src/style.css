@@ -35,7 +35,7 @@ h4 {
 .panel-heading,
 .panel-footer .btn,
 .navbar-default .navbar-toggle,
-.navbar-default .navbar-nav > li > a {
+.navbar-default .navbar-nav>li>a {
     color: #fff;
 }
 
@@ -267,7 +267,7 @@ label:first-letter {
     width: 130px;
 }
 
-.admin-header .navbar-collapse {
+.header-admin .navbar {
     background-color: #6389aa;
 }
 
@@ -275,9 +275,13 @@ label:first-letter {
     padding: 0;
 }
 
+.navbar-brand .logo,
+.header {
+    height: 50px;
+}
+
 .navbar-brand .logo {
     width: 50px;
-    height: 50px;
 }
 
 .navbar-brand .logo,
@@ -297,7 +301,8 @@ label:first-letter {
     margin-right: 10px;
 }
 
-.icons-dropdown .dropdown-menu li, .dropdown-item p {
+.icons-dropdown .dropdown-menu li,
+.dropdown-item p {
     display: inline-block;
 }
 
@@ -308,8 +313,13 @@ label:first-letter {
 .icons-dropdown .dropdown-menu {
     min-width: 300px;
 }
+
 .icons-dropdown .dropdown-menu li {
     width: 7%;
+}
+
+.header-admin .navbar .loggout a {
+    color: darkred;
 }
 
 @keyframes slide {
@@ -363,6 +373,12 @@ label:first-letter {
 @media screen and (min-width: 998px) {
     .icons-dropdown .dropdown-menu {
         left: -50%;
+    }
+
+    .page-login {
+        max-width: 70%;
+        margin: 0 auto;
+        display: block;
     }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 //components
-import DeleteData from "../../components/utils/DeleteData/DeleteData";
+import DeleteData from "../../services/DeleteData/DeleteData";
 
 class Painel extends Component {
     constructor(props) {

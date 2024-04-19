@@ -83,6 +83,7 @@ Para controle de autenticação, banco de dados, storage e hospedagem.
 [Link](https://console.firebase.google.com/u/0/project/website-sabrinabm94/hosting/sites)
 
 #### Authentication
+npm install firebase
 
 firebase init
 firebase login
@@ -102,10 +103,10 @@ firebase deploy -m ""
 
 [Firebase app admin](https://website-sabrinabm94.firebaseapp.com/login)
 
-test@test.com
+<test@test.com>
 Test@2022
 
 # Contact
 
 Sabrina B.
-sabrinabm94@gmail.com
+<sabrinabm94@gmail.com>

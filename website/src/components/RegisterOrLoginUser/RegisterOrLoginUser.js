@@ -1,121 +1,144 @@
-import { React, Component } from "react";
-import { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "../../init-firebase";
-
-//components
+import React, { useState, useEffect } from "react";
 import Alert from "../Alert/Alert";
+import {
+    auth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+} from "../../init-firebase";
 
-class RegisterOrLoginUser extends Component {
-    constructor(props) {
-        super(props);
+const RegisterOrLoginUser = (props) => {
+    const [error, setError] = useState(null);
+    const [isAuthenticated, updateIsAuthenticated] = useState(false);
 
-        this.state = {
-            error: null,
-            isAuthenticated: false,
-            user: null
-        }
-    }
+    useEffect(() => {
+        registerOrLoginUser();
+    }, []);
+    
+    // Função para definir o cookie para controlar autenticação
+    const setCookie = (name, value, expiresInSeconds) => {
+        const date = new Date();
+        date.setTime(date.getTime() + expiresInSeconds * 1000);
+        const expires = "; expires=" + date.toUTCString();
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    };
 
-    componentDidMount() {
-        this.registerOrLoginUser(this.props.action, this.props.id, this.props.email, this.props.password, this.props.button);
-    }
+    useEffect(() => {
+        console.log("isAuthenticated " + isAuthenticated);
+        if (isAuthenticated === true) {
+            setCookie("isAuthenticated", isAuthenticated.toString(), 3600);
+        } 
+    }, [isAuthenticated]);
 
-    registerOrLoginUser(action, formClassname, emailClassname, passwordClassname, buttonClassname) {
-        console.log(buttonClassname);
-        let buttonElement = document.querySelector("#" + buttonClassname);
+    const registerOrLoginUser = () => {
+        const buttonElement = document.querySelector(`#${props.button}`);
 
         if (buttonElement && buttonElement !== undefined) {
-            buttonElement.addEventListener("click", function () {
-                //console.log("submit authentication");
-
-                let formElement = document.querySelector("#" + formClassname);
+            buttonElement.addEventListener("click", () => {
+                const formElement = document.querySelector(`#${props.id}`);
 
                 if (formElement) {
                     let authObject = {
                         email: null,
-                        password: null
+                        password: null,
                     };
-                    let loginEmailElement = formElement.querySelector("#" + emailClassname);
-                    let loginPasswordElement = formElement.querySelector("#" + passwordClassname);
+
+                    const loginEmailElement = formElement.querySelector(
+                        `#${props.email}`
+                    );
+                    const loginPasswordElement = formElement.querySelector(
+                        `#${props.password}`
+                    );
 
                     if (loginEmailElement && loginEmailElement !== undefined) {
                         authObject.email = loginEmailElement.value;
                     }
 
-                    if (loginPasswordElement && loginPasswordElement !== undefined) {
+                    if (
+                        loginPasswordElement &&
+                        loginPasswordElement !== undefined
+                    ) {
                         authObject.password = loginPasswordElement.value;
                     }
 
-                    if (authObject 
-                        && (authObject.email !== null && authObject.email !== undefined && authObject.email !== "") 
-                        && (authObject.password !== null && authObject.password !== undefined && authObject.password !== "")
+                    if (
+                        authObject.email &&
+                        authObject.password &&
+                        authObject.email !== "" &&
+                        authObject.password !== ""
                     ) {
+                        const { action } = props;
+
                         if (action === "login") {
-                            signInWithEmailAndPassword(auth, authObject.email, authObject.password)
+                            signInWithEmailAndPassword(
+                                auth,
+                                authObject.email,
+                                authObject.password
+                            )
                                 .then((userCredential) => {
-                                    // this.setState({ //todo verificar porque o erro no setState
-                                    //     error: null,
-                                    //     user: userCredential.user,
-                                    //     isAuthenticated: true,
-                                    // })
-                                    if(window !== undefined) {
-                                        alert("loggin....");
-                                        return  window.location.href = "/admin/company";
+                                    if (userCredential) {
+                                        let user = userCredential.user;
+                                        let firebaseLoginToken = null;
+                                        let firebaseLoginUid = user.uid;
+
+                                        if (userCredential.idToken) {
+                                            firebaseLoginToken =
+                                                userCredential.idToken;
+                                        }
+
+                                        if (firebaseLoginUid) {
+                                            updateIsAuthenticated(true);
+                                            if (window !== undefined) {
+                                                alert("Entrando....");
+                                                window.location.href =
+                                                    "/admin/company";
+                                            }
+                                        }
                                     }
                                 })
                                 .catch((err) => {
-                                    // this.setState({ //todo verificar porque o erro no setState
-                                    //     error: err,
-                                    //     user: null,
-                                    //     isAuthenticated: false
-                                    // })
+                                    updateIsAuthenticated(false);
+                                    console.log("Erro: ", err);
                                     alert(err);
-                                    return err;
                                 });
-                        }
-
-                        if (action === "register") {
-                            createUserWithEmailAndPassword(auth, authObject.email, authObject.password)
-                                .then((userCredential) => {
-                                    // this.setState({ //todo verificar porque o erro no setState
-                                    //     error: null,
-                                    //     user: userCredential.user,
-                                    //     isAuthenticated: true,
-                                    // })
-                                    if(window !== undefined) {
-                                        alert("New user created, loggin....");
-                                        return  window.location.href = "/admin/company";
+                        } else if (action === "register") {
+                            createUserWithEmailAndPassword(
+                                auth,
+                                authObject.email,
+                                authObject.password
+                            )
+                                .then(() => {
+                                    updateIsAuthenticated(true);
+                                    if (window !== undefined) {
+                                        alert(
+                                            "Criando novo usuário e entrando...."
+                                        );
+                                        window.location.href = "/admin/company";
                                     }
                                 })
                                 .catch((err) => {
-                                    // this.setState({ //todo verificar porque o erro no setState
-                                    //     error: err,
-                                    //     user: null,
-                                    //     isAuthenticated: false
-                                    // })
-                                    return err;
+                                    updateIsAuthenticated(false);
+                                    alert(err);
                                 });
-
                         }
                     } else {
-                        //let err = "Preencha todos os campos obrigatórios!";
-                        // this.setState({ //todo verificar porque o erro no setState
-                        //     error: err,
-                        //     user: null,
-                        //     isAuthenticated: false
-                        // })
+                        let err = "Preencha todos os campos obrigatórios!";
+                        setError(err);
                     }
                 }
             });
         }
-    }
+    };
 
-    render() {
-        return (
-            <form className={this.props.className} id={this.props.id} data-testid="register-or-login-user-component">
-                {this.props.children}
-                {this.state.error && this.state.error !== null && <Alert type="danger" message={this.state.error} />}
-            </form>
-        );
-    }
-}
+    return (
+        <form
+            className={props.className}
+            id={props.id}
+            data-testid="register-or-login-user-component"
+        >
+            {props.children}
+            {error && <Alert type="danger" message={error} />}
+        </form>
+    );
+};
+
 export default RegisterOrLoginUser;
