@@ -51,7 +51,7 @@ const App = () => {
     return (
         <Router>
             <div className="app">
-                <Header isAuthenticated={isAuthenticated} />
+                <Header />
                 <main className="main">
                     <Pages />
                 </main>

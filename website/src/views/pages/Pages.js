@@ -11,7 +11,7 @@ import Contact from "./Contact";
 import Admin from "./admin/Admin";
 import RegisterUser from "./auth/RegisterUser";
 import LoginUser from "./auth/LoginUser";
-import Header from "../templates/Header";
+import NotFound from "./NotFound";
 
 const Pages = ({ onAuthChange }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -79,6 +79,7 @@ const Pages = ({ onAuthChange }) => {
                 ) : (
                     <Route path="/login/" element={<LoginUser />} />
                 )}
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </div>
     );
