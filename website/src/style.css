@@ -187,7 +187,8 @@ footer .glyphicon {
     border-color: transparent;
 }
 
-footer .glyphicon {
+footer .glyphicon,
+.button {
     margin-bottom: 20px;
 }
 
@@ -273,11 +274,6 @@ label:first-letter {
 
 .navbar-brand {
     padding: 0;
-}
-
-.navbar-brand .logo,
-.header {
-    height: 50px;
 }
 
 .navbar-brand .logo {
@@ -379,6 +375,11 @@ label:first-letter {
         max-width: 70%;
         margin: 0 auto;
         display: block;
+    }
+
+    .navbar-brand .logo,
+    .header {
+        height: 50px;
     }
 }
 
