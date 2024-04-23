@@ -39,6 +39,10 @@ h4 {
     color: #fff;
 }
 
+.page-header {
+    margin: 0;
+}
+
 .carousel-indicators li.active,
 .panel-footer .btn,
 .navbar,
@@ -278,6 +282,7 @@ label:first-letter {
 
 .navbar-brand .logo {
     width: 50px;
+    height: 50px;
 }
 
 .navbar-brand .logo,
@@ -377,7 +382,6 @@ label:first-letter {
         display: block;
     }
 
-    .navbar-brand .logo,
     .header {
         height: 50px;
     }

@@ -13,6 +13,9 @@ import RegisterUser from "./auth/RegisterUser";
 import LoginUser from "./auth/LoginUser";
 import NotFound from "./NotFound";
 
+import PageHeader from "../templates/PageHeader";
+
+
 const Pages = ({ onAuthChange }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -57,6 +60,7 @@ const Pages = ({ onAuthChange }) => {
 
     return (
         <div className="pages">
+            <PageHeader />
             <Routes>
                 <Route path="/" element={<About />} />
                 <Route

@@ -83,20 +83,33 @@ Para controle de autenticação, banco de dados, storage e hospedagem.
 [Link](https://console.firebase.google.com/u/0/project/website-sabrinabm94/hosting/sites)
 
 #### Authentication
-npm install firebase
+npm install -g firebase
 
-firebase init
+npm install -g firebase-tools
+
+firebase logout
+
 firebase login
+
+firebase projects:list
+
+### Outros comandos
+firebase login:ci
+
+firebase login --reauth
+
 firebase serve
 
 #### Deploy
 
-yarn build
+npm run build
+
 firebase deploy -m ""
 
 ### Access
 
 [Firebase app](https://website-sabrinabm94.firebaseapp.com)
+
 [Web app](https://website-sabrinabm94.web.app)
 
 #### Test
@@ -104,6 +117,7 @@ firebase deploy -m ""
 [Firebase app admin](https://website-sabrinabm94.firebaseapp.com/login)
 
 <test@test.com>
+
 Test@2022
 
 # Contact
