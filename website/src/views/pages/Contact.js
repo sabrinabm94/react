@@ -1,14 +1,14 @@
 import { React, Component } from "react";
 
 //components
-import Picture from "../../components/Picture/Picture";
-import Glyphicon from "../../components/Glyphicon/Glyphicon";
-import Button from "../../components/Button/Button";
-import Input from "../../components/Form/Input/Input";
-import Textarea from "../../components/Form/Textarea/Textarea";
-import Form from "../../components/Form/Form/Form";
+import Picture from "../components/Picture/Picture";
+import Glyphicon from "../components/Glyphicon/Glyphicon";
+import Button from "../components/Button/Button";
+import Input from "../components/Form/Input/Input";
+import Textarea from "../components/Form/Textarea/Textarea";
+import Form from "../components/Form/Form/Form";
 import GetData from "../../services/GetData/GetData";
-import Text from "../../components/Text/Text";
+import Text from "../components/Text/Text";
 
 class Contact extends Component {
     constructor(props) {

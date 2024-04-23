@@ -1,7 +1,7 @@
 import { React, Component } from "react";
 
 //components
-import Card from "../../components/Card/Card";
+import Card from "../components/Card/Card";
 import GetData from "../../services/GetData/GetData";
 
 class Services extends Component {

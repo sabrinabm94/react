@@ -1,8 +1,8 @@
 // LoginUser.js
 import React from "react";
-import Input from "../../../components/Form/Input/Input";
-import Button from "../../../components/Button/Button";
-import RegisterOrLoginUser from "../../../components/RegisterOrLoginUser/RegisterOrLoginUser";
+import Input from "../../components/Form/Input/Input";
+import Button from "../../components/Button/Button";
+import RegisterOrLoginUser from "../../components/RegisterOrLoginUser/RegisterOrLoginUser";
 
 const LoginUser = ({ onAuthChange }) => {
     const handleAuthChange = (authenticated) => {

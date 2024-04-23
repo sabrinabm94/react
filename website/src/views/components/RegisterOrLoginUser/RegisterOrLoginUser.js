@@ -4,7 +4,7 @@ import {
     auth,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
-} from "../../init-firebase";
+} from "../../../init-firebase";
 
 const RegisterOrLoginUser = (props) => {
     const [error, setError] = useState(null);

@@ -1,7 +1,7 @@
 import { React, Component } from "react";
 
 //components
-import PainelSecondary from "../../components/PainelSecondary/PainelSecondary";
+import PainelSecondary from "../components/PainelSecondary/PainelSecondary";
 import GetData from "../../services/GetData/GetData";
 
 class Pricing extends Component {

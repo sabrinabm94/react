@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 
 //components
-import Button from "../../../components/Button/Button";
-import Input from "../../../components/Form/Input/Input";
-import Form from "../../../components/Form/Form/Form";
+import Button from "../../components/Button/Button";
+import Input from "../../components/Form/Input/Input";
+import Form from "../../components/Form/Form/Form";
 
 //templates
-import ShowData from "../../templates/admin/ShowData";
+import ShowData from "../../../views/templates/admin/ShowData";
 
 class Portfolio extends Component {
     render() {

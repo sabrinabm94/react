@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
 //components
-import Input from "../../../components/Form/Input/Input";
-import Button from "../../../components/Button/Button";
-import File from "../../../components/Form/File/File";
-import Form from "../../../components/Form/Form/Form";
+import Input from "../../components/Form/Input/Input";
+import Button from "../../components/Button/Button";
+import File from "../../components/Form/File/File";
+import Form from "../../components/Form/Form/Form";
 
 //templates
 import ShowData from "../../templates/admin/ShowData";

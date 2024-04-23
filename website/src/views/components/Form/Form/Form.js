@@ -4,10 +4,10 @@ import {
     storage,
     uploadBytes,
     getDownloadURL,
-} from "../../../init-firebase";
+} from "../../../../init-firebase";
 
 //components
-import SetData from "../../../services/SetData/SetData";
+import SetData from "../../../../services/GetData/GetData";
 
 class Form extends Component {
     constructor(props) {

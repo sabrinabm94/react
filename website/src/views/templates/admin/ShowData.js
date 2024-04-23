@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 //components
-import Dropdown from "../../../components/Dropdown/Dropdown";
-import Button from "../../../components/Button/Button";
+import Dropdown from "../../components/Dropdown/Dropdown";
+import Button from "../../components/Button/Button";
 import GetData from "../../../services/GetData/GetData";
 import DeleteData from "../../../services/DeleteData/DeleteData";
 

@@ -1,8 +1,8 @@
 // RegisterUser.js
 import React, { useRef } from "react";
-import Input from "../../../components/Form/Input/Input";
-import Button from "../../../components/Button/Button";
-import RegisterOrLoginUser from "../../../components/RegisterOrLoginUser/RegisterOrLoginUser";
+import Input from "../../components/Form/Input/Input";
+import Button from "../../components/Button/Button";
+import RegisterOrLoginUser from "../../components/RegisterOrLoginUser/RegisterOrLoginUser";
 import AuthProtector from "../../../services/AuthProtector/AuthProtector";
 
 const RegisterUser = ({ onAuthChange }) => {
