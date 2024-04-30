@@ -1,55 +1,45 @@
-import { React, Component } from "react";
+import { React, useState, useEffect } from "react";
 
 //components
-import GetData from "../../services/GetData/GetData";
 import Text from "../components/Text/Text";
 
-class PageHeader extends Component {
-    constructor(props) {
-        super(props);
+//services
+import  GetData  from "../../services/GetData/GetData";
 
-        this.state = {
-            elements: [],
-            text: "",
-        };
-    }
+function PageHeader(props) {
+    const [elements, setElements] = useState([]);
+    const [text, setText] = useState("");
 
-    handleGetData = (childData) => {
-        if (
-            childData &&
-            childData !== null &&
-            childData !== undefined &&
-            childData !== ""
-        ) {
-            this.setState({ elements: childData });
-        }
-    };
-
-    handleBreaklines = (data) => {
+    const handleGetData = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
-            this.setState({ text: data });
+            setElements(data);
         }
     };
 
-    render() {
-        return (
-            <section className="page-header jumbotron text-center">
-                <GetData
-                    collection="companyElements"
-                    justOne={true}
-                    parentCallback={(data) => {
-                        this.handleGetData(data);
-                    }}
-                />
-                <h1 className="title">{this.state.elements.name}</h1>
-                <Text
-                    className="subtitle"
-                    text={this.state.elements.content}
-                    parentCallback={this.handleBreaklines}
-                />
-            </section>
-        );
-    }
+    const handleBreaklines = (data) => {
+        if (data && data !== null && data !== undefined && data !== "") {
+            setText(data);
+        }
+    };
+
+    useEffect(() => {
+        GetData({
+            collection: "companyElements",
+            justOne: true,
+            parentCallback: handleGetData,
+        });
+    }, []);
+
+    return (
+        <section className="page-header jumbotron text-center">
+            <h1 className="title">{elements.name}</h1>
+            <Text
+                className="subtitle"
+                text={elements.content}
+                parentCallback={handleBreaklines}
+            />
+        </section>
+    );
 }
 
 export default PageHeader;

@@ -1,4 +1,4 @@
-import { React, Component } from "react";
+import { React, useState, useEffect } from "react";
 
 //components
 import Picture from "../components/Picture/Picture";
@@ -7,115 +7,110 @@ import Button from "../components/Button/Button";
 import Input from "../components/Form/Input/Input";
 import Textarea from "../components/Form/Textarea/Textarea";
 import Form from "../components/Form/Form/Form";
-import GetData from "../../services/GetData/GetData";
 import Text from "../components/Text/Text";
 
-class Contact extends Component {
-    constructor(props) {
-        super(props);
+//services
+import  GetData  from "../../services/GetData/GetData";
 
-        this.state = {
-            elements: [],
-            text: "",
-        };
-    }
+function Contact(props) {
+    const [elements, setElements] = useState([]);
+    const [text, setText] = useState("");
 
-    handleGetData = (data) => {
+    const handleGetData = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
-            this.setState({ elements: data });
+            setElements(data);
         }
     };
 
-    handleBreaklines = (data) => {
+    const handleBreaklines = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
-            this.setState({ text: data });
+            setText(data);
         }
     };
 
-    render() {
-        return (
-            <section id="contact" className="contact container-fluid bg-grey">
-                <GetData
-                    collection="contactElements"
-                    justOne={true}
-                    parentCallback={(data) => {
-                        this.handleGetData(data);
-                    }}
-                />
-                <div className="text-center">
-                    <h1 className="title">CONTACT</h1>
-                    <h2 className="subtitle">Send your message</h2>
+    useEffect(() => {
+        GetData({
+            collection: "contactElements",
+            justOne: true,
+            parentCallback: handleGetData,
+        });
+    }, []);
+
+    return (
+        <section id="contact" className="contact container-fluid bg-grey">
+            <div className="text-center">
+                <h1 className="title">CONTACT</h1>
+                <h2 className="subtitle">Send your message</h2>
+            </div>
+            <div className="row">
+                <div className="col-sm-5">
+                    <Text
+                        className="content"
+                        text={elements.content}
+                        parentCallback={handleBreaklines}
+                    />
+                    <p>
+                        <Glyphicon name="map-marker" />{" "}
+                        {elements.address}
+                    </p>
+                    <p>
+                        <Glyphicon name="phone" />{" "}
+                        {elements.phone}
+                    </p>
+                    <p>
+                        <Glyphicon name="envelope" />{" "}
+                        {elements.email}
+                    </p>
                 </div>
-                <div className="row">
-                    <div className="col-sm-5">
-                        <Text
-                            className="content"
-                            text={this.state.elements.content}
-                            parentCallback={this.handleBreaklines}
-                        />
-                        <p>
-                            <Glyphicon name="map-marker" />{" "}
-                            {this.state.elements.address}
-                        </p>
-                        <p>
-                            <Glyphicon name="phone" />{" "}
-                            {this.state.elements.phone}
-                        </p>
-                        <p>
-                            <Glyphicon name="envelope" />{" "}
-                            {this.state.elements.email}
-                        </p>
-                    </div>
-                    <div className="col-sm-7 slideanim slide">
-                        <Form
-                            collection="clientsContactElements"
-                            className="form"
-                        >
-                            <div className="row">
-                                <div className="col-sm-6">
-                                    <Input
-                                        type="text"
-                                        className="input"
-                                        name="name"
-                                        placeholder="name"
-                                        required={true}
-                                    />
-                                </div>
-                                <div className="col-sm-6">
-                                    <Input
-                                        type="text"
-                                        className="email"
-                                        name="email"
-                                        placeholder="email"
-                                        required={true}
-                                    />
-                                </div>
-                                <div className="col-sm-12">
-                                    <Textarea
-                                        className="input"
-                                        name="comment"
-                                        placeholder="comment"
-                                        required={true}
-                                    />
-                                    <Button
-                                        type="submit"
-                                        className="btn-primary"
-                                        text="Submit"
-                                        disabled={false}
-                                    />
-                                </div>
+                <div className="col-sm-7 slideanim slide">
+                    <Form
+                        collection="clientsContactElements"
+                        className="form"
+                    >
+                        <div className="row">
+                            <div className="col-sm-6">
+                                <Input
+                                    type="text"
+                                    className="input"
+                                    name="name"
+                                    placeholder="name"
+                                    required={true}
+                                />
                             </div>
-                        </Form>
-                    </div>
+                            <div className="col-sm-6">
+                                <Input
+                                    type="text"
+                                    className="email"
+                                    name="email"
+                                    placeholder="email"
+                                    required={true}
+                                />
+                            </div>
+                            <div className="col-sm-12">
+                                <Textarea
+                                    className="input"
+                                    name="comment"
+                                    placeholder="comment"
+                                    required={true}
+                                />
+                                <Button
+                                    type="submit"
+                                    className="btn-primary"
+                                    text="Submit"
+                                    disabled={false}
+                                />
+                            </div>
+                        </div>
+                    </Form>
                 </div>
-                <Picture
-                    url={this.state.elements.file}
-                    className="picture"
-                    alt="map"
-                />
-            </section>
-        );
-    }
+            </div>
+            <Picture
+                url={elements.file}
+                className="picture"
+                alt="map"
+            />
+        </section>
+    );
 }
 
 export default Contact;

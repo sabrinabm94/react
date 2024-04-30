@@ -7,7 +7,7 @@ import {
 } from "../../../../init-firebase";
 
 //components
-import SetData from "../../../../services/GetData/GetData";
+import SetData from "../../../../services/SetData/SetData";
 
 class Form extends Component {
     constructor(props) {

@@ -1,97 +1,88 @@
-import { React, Component } from "react";
+import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 //components
 import Button from "../components/Button/Button";
 import Picture from "../components/Picture/Picture";
-import GetData from "../../services/GetData/GetData";
 
-class Nav extends Component {
-    constructor(props) {
-        super(props);
+//services
+import  GetData  from "../../services/GetData/GetData";
 
-        this.state = {
-            elements: [],
-        };
-    }
+function Nav(props) {
+    const [elements, setElements] = useState([]);
+    const [text, setText] = useState("");
 
-    handleGetData = (childData) => {
-        if (
-            childData &&
-            childData !== null &&
-            childData !== undefined &&
-            childData !== ""
-        ) {
-            this.setState({ elements: childData });
+    const handleGetData = (data) => {
+        if (data && data !== null && data !== undefined && data !== "") {
+            setElements(data);
         }
     };
 
-    render() {
-        if (
-            this.state.elements &&
-            this.state.elements !== null &&
-            this.state.elements !== undefined
-        ) {
-            return (
-                <nav className="navbar navbar-default navbar-fixed-top" id="nav">
-                    <GetData
-                        collection="companyElements"
-                        justOne={true}
-                        parentCallback={(data) => {
-                            this.handleGetData(data);
-                        }}
-                    />
-                    <div className="container">
-                        <div className="navbar-header">
-                            <Button
-                                type="button"
-                                className="navbar-toggle"
-                                dataToggle="collapse"
-                                dataTarget="#myNavbar"
-                            >
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                            </Button>
-
-                            <a className="navbar-brand" href="/">
-                                <Picture
-                                    className="picture logo"
-                                    alt="company logo"
-                                    url={this.state.elements.file}
-                                ></Picture>
-                            </a>
-                        </div>
-                        <div className="collapse navbar-collapse" id="myNavbar">
-                            <ul className="nav navbar-nav navbar-right">
-                                <li>
-                                    <Link to="/about/">ABOUT</Link>
-                                </li>
-                                <li>
-                                    <Link to="/services/">SERVICES</Link>
-                                </li>
-                                <li>
-                                    <Link to="/portfolio/">PORTFOLIO</Link>
-                                </li>
-                                <li>
-                                    <Link to="/costumers/">COSTUMERS</Link>
-                                </li>
-                                <li>
-                                    <Link to="/pricing/">PRICING</Link>
-                                </li>
-                                <li>
-                                    <Link to="/contact/">CONTACT</Link>
-                                </li>
-                                <li>
-                                    <Link to="/login/">LOGIN</Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            );
+    const handleBreaklines = (data) => {
+        if (data && data !== null && data !== undefined && data !== "") {
+            setText(data);
         }
-    }
+    };
+
+    useEffect(() => {
+        GetData({
+            collection: "companyElements",
+            justOne: true,
+            parentCallback: handleGetData,
+        });
+    }, []);
+
+    return (
+        <nav className="navbar navbar-default navbar-fixed-top" id="nav">
+            <div className="container">
+                <div className="navbar-header">
+                    <Button
+                        type="button"
+                        className="navbar-toggle"
+                        dataToggle="collapse"
+                        dataTarget="#myNavbar"
+                    >
+                        <span className="icon-bar"></span>
+                        <span className="icon-bar"></span>
+                        <span className="icon-bar"></span>
+                    </Button>
+
+                    <a className="navbar-brand" href="/">
+                        <Picture
+                            className="picture logo"
+                            alt="company logo"
+                            url={elements.file}
+                        />
+                    </a>
+                </div>
+                <div className="collapse navbar-collapse" id="myNavbar">
+                    <ul className="nav navbar-nav navbar-right">
+                        <li>
+                            <Link to="/about/">ABOUT</Link>
+                        </li>
+                        <li>
+                            <Link to="/services/">SERVICES</Link>
+                        </li>
+                        <li>
+                            <Link to="/portfolio/">PORTFOLIO</Link>
+                        </li>
+                        <li>
+                            <Link to="/costumers/">COSTUMERS</Link>
+                        </li>
+                        <li>
+                            <Link to="/pricing/">PRICING</Link>
+                        </li>
+                        <li>
+                            <Link to="/contact/">CONTACT</Link>
+                        </li>
+                        <li>
+                            <Link to="/login/">LOGIN</Link>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    );
 }
 
 export default Nav;

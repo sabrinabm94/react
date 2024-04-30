@@ -1,46 +1,49 @@
-import { React, Component } from "react";
+import { React, useState, useEffect } from "react";
 
 //components
 import Carousel from "../components/Carousel/Carousel";
-import GetData from "../../services/GetData/GetData";
 
-class Costumers extends Component {
-    constructor(props) {
-        super(props);
+//services
+import  GetData  from "../../services/GetData/GetData";
 
-        this.state = {
-            elements: [],
-        };
-    }
+function Costumers(props) {
+    const [elements, setElements] = useState([]);
+    const [text, setText] = useState("");
 
-    handleGetData = (data) => {
+    const handleGetData = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
-            this.setState({ elements: data });
+            setElements(data);
         }
     };
 
-    render() {
-        return (
-            <section
-                id="costumers"
-                className="constumers container-fluid bg-grey"
-            >
-                <GetData
-                    collection="costumersElements"
-                    parentCallback={(data) => {
-                        this.handleGetData(data);
-                    }}
-                />
-                <div className="text-center">
-                    <h1 className="title">COSTUMERS</h1>
-                    <h2 className="subtitle">What our customers say</h2>
-                </div>
-                <div className="row slideanim slide">
-                    <Carousel elements={this.state.elements} />
-                </div>
-            </section>
-        );
-    }
+    const handleBreaklines = (data) => {
+        if (data && data !== null && data !== undefined && data !== "") {
+            setText(data);
+        }
+    };
+
+    useEffect(() => {
+        GetData({
+            collection: "costumersElements",
+            justOne: false,
+            parentCallback: handleGetData,
+        });
+    }, []);
+
+    return (
+        <section
+            id="costumers"
+            className="constumers container-fluid bg-grey"
+        >
+            <div className="text-center">
+                <h1 className="title">COSTUMERS</h1>
+                <h2 className="subtitle">What our customers say</h2>
+            </div>
+            <div className="row slideanim slide">
+                <Carousel elements={elements} />
+            </div>
+        </section>
+    );
 }
 
 export default Costumers;

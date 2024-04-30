@@ -1,64 +1,58 @@
-import { React, Component } from "react";
+import { React, useState, useEffect } from "react";
 
 //components
 import Glyphicon from "../components/Glyphicon/Glyphicon";
-import GetData from "../../services/GetData/GetData";
 import Text from "../components/Text/Text";
 
-class About extends Component {
-    constructor(props) {
-        super(props);
+//services
+import  GetData  from "../../services/GetData/GetData";
 
-        this.state = {
-            elements: [],
-            text: "",
-        };
-    }
+function About(props) {
+    const [elements, setElements] = useState([]);
+    const [text, setText] = useState("");
 
-    handleGetData = (data) => {
+    const handleGetData = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
-            this.setState({ elements: data });
+            setElements(data);
         }
     };
 
-    handleBreaklines = (data) => {
+    const handleBreaklines = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
-            this.setState({ text: data });
+            setText(data);
         }
     };
 
-    render() {
-        return (
-            <section id="about" className="about container-fluid bg-grey">
-                <GetData
-                    collection="aboutElements"
-                    justOne={true}
-                    parentCallback={(data) => {
-                        this.handleGetData(data);
-                    }}
-                />
+    useEffect(() => {
+        GetData({
+            collection: "aboutElements",
+            justOne: true,
+            parentCallback: handleGetData,
+        });
+    }, []);
 
-                <div className="text-center">
-                    <h1 className="title">ABOUT US</h1>
+    return (
+        <section id="about" className="about container-fluid bg-grey">
+            <div className="text-center">
+                <h1 className="title">ABOUT US</h1>
+            </div>
+            <div className="row">
+                <div className="col-sm-4">
+                    <Glyphicon
+                        name={`${elements.icon} logo slideanim slide`}
+                    />
                 </div>
-                <div className="row">
-                    <div className="col-sm-4">
-                        <Glyphicon
-                            name={`${this.state.elements.icon} logo slideanim slide`}
-                        />
-                    </div>
-                    <div className="col-sm-8">
-                        <h2 className="title">{this.state.elements.title}</h2>
-                        <Text
-                            className="subtitle"
-                            text={this.state.elements.content}
-                            parentCallback={this.handleBreaklines}
-                        />
-                    </div>
+                <div className="col-sm-8">
+                    <h2 className="title">{elements.title}</h2>
+                    <Text
+                        className="subtitle"
+                        text={elements.content}
+                        parentCallback={handleBreaklines}
+                    />
                 </div>
-            </section>
-        );
-    }
+            </div>
+        </section>
+    );
 }
 
 export default About;

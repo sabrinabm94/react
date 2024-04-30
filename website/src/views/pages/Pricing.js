@@ -1,62 +1,59 @@
-import { React, Component } from "react";
+import { React, useState, useEffect } from "react";
 
 //components
 import PainelSecondary from "../components/PainelSecondary/PainelSecondary";
-import GetData from "../../services/GetData/GetData";
 
-class Pricing extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            elements: [],
-            text: "",
-        };
-    }
+//services
+import  GetData  from "../../services/GetData/GetData";
 
-    handleGetData = (data) => {
+function Pricing(props) {
+    const [elements, setElements] = useState([]);
+    const [text, setText] = useState("");
+
+    const handleGetData = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
-            this.setState({ elements: data });
+            setElements(data);
         }
     };
 
-    handleBreaklines = (data) => {
+    const handleBreaklines = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
-            this.setState({ text: data });
+            setText(data);
         }
     };
 
-    render() {
-        return (
-            <section id="pricing" className="pricing container-fluid">
-                <GetData
-                    collection="pricingElements"
-                    parentCallback={(data) => {
-                        this.handleGetData(data);
-                    }}
-                />
-                <div className="text-center">
-                    <h1 className="title">Pricing</h1>
-                </div>
-                <div className="row slideanim slide">
-                    <>
-                        {this.state.elements.map((data, key) => {
-                            return (
-                                <div className="col-sm-4 col-xs-12" key={key}>
-                                    <PainelSecondary
-                                        title={data.title}
-                                        description={data.content}
-                                        value={data.subtitle}
-                                        link={data.link}
-                                    />
-                                </div>
-                            );
-                        })}
-                    </>
-                </div>
-            </section>
-        );
-    }
+    useEffect(() => {
+        GetData({
+            collection: "pricingElements",
+            justOne: false,
+            parentCallback: handleGetData,
+        });
+    }, []);
+
+    return (
+        <section id="pricing" className="pricing container-fluid">
+            <div className="text-center">
+                <h1 className="title">Pricing</h1>
+            </div>
+            <div className="row slideanim slide">
+                <>
+                    {elements.map((data, key) => {
+                        return (
+                            <div className="col-sm-4 col-xs-12" key={key}>
+                                <PainelSecondary
+                                    title={data.title}
+                                    description={data.content}
+                                    value={data.subtitle}
+                                    link={data.link}
+                                />
+                            </div>
+                        );
+                    })}
+                </>
+            </div>
+        </section>
+    );
 }
 
 export default Pricing;
