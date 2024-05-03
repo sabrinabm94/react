@@ -6,7 +6,7 @@ import Button from "../components/Button/Button";
 import Picture from "../components/Picture/Picture";
 
 //services
-import  GetData  from "../../services/GetData/GetData";
+import FindAllByCollection from "../../services/FindAllByCollection/FindAllByCollection";
 
 function Nav(props) {
     const [elements, setElements] = useState([]);
@@ -25,9 +25,8 @@ function Nav(props) {
     };
 
     useEffect(() => {
-        GetData({
+        FindAllByCollection({
             collection: "companyElements",
-            justOne: true,
             parentCallback: handleGetData,
         });
     }, []);

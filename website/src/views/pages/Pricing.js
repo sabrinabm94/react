@@ -5,7 +5,7 @@ import PainelSecondary from "../components/PainelSecondary/PainelSecondary";
 
 
 //services
-import  GetData  from "../../services/GetData/GetData";
+import FindAllByCollection from "../../services/FindAllByCollection/FindAllByCollection"
 
 function Pricing(props) {
     const [elements, setElements] = useState([]);
@@ -24,9 +24,8 @@ function Pricing(props) {
     };
 
     useEffect(() => {
-        GetData({
+        FindAllByCollection({
             collection: "pricingElements",
-            justOne: false,
             parentCallback: handleGetData,
         });
     }, []);

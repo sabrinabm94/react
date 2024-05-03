@@ -5,7 +5,7 @@ import Thumbnail from "../components/Thumbnail/Thumbnail";
 
 
 //services
-import  GetData  from "../../services/GetData/GetData";
+import FindAllByCollection from "../../services/FindAllByCollection/FindAllByCollection";
 
 function Portfolio(props) {
     const [elements, setElements] = useState([]);
@@ -24,9 +24,8 @@ function Portfolio(props) {
     };
 
     useEffect(() => {
-        GetData({
+        FindAllByCollection({
             collection: "portfolioElements",
-            justOne: false,
             parentCallback: handleGetData,
         });
     }, []);

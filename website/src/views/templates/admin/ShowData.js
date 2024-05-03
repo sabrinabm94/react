@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { React, useEffect, useState } from "react";
 
 //components
 import Dropdown from "../../components/Dropdown/Dropdown";
@@ -6,11 +6,11 @@ import Button from "../../components/Button/Button";
 import DeleteData from "../../../services/DeleteData/DeleteData";
 
 //services
-import GetData from "../../../services/GetData/GetData";
+import FindAllByCollection from "../../../services/FindAllByCollection/FindAllByCollection";
 
 function About(props) {
-    const [elements, setElements] = React.useState([]);
-    const [text, setText] = React.useState("");
+    const [elements, setElements] = useState([]);
+    const [text, setText] = useState("");
 
     const handleGetData = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
@@ -24,10 +24,9 @@ function About(props) {
         }
     };
 
-    React.useEffect(() => {
-        GetData({
+    useEffect(() => {
+        FindAllByCollection({
             collection: props.collection,
-            justOne: false,
             parentCallback: handleGetData,
         });
     }, []);

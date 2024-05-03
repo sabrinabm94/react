@@ -4,7 +4,7 @@ import { React, useState, useEffect } from "react";
 import Card from "../components/Card/Card";
 
 //services
-import  GetData  from "../../services/GetData/GetData";
+import FindAllByCollection from "../../services/FindAllByCollection/FindAllByCollection";
 
 function Services(props) {
     const [elements, setElements] = useState([]);
@@ -23,9 +23,8 @@ function Services(props) {
     };
 
     useEffect(() => {
-        GetData({
+        FindAllByCollection({
             collection: "servicesElements",
-            justOne: false,
             parentCallback: handleGetData,
         });
     }, []);

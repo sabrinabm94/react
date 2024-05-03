@@ -10,7 +10,7 @@ import Form from "../components/Form/Form/Form";
 import Text from "../components/Text/Text";
 
 //services
-import  GetData  from "../../services/GetData/GetData";
+import FindOneByCollection from "../../services/FindOneByCollection/FindOneByCollection";
 
 function Contact(props) {
     const [elements, setElements] = useState([]);
@@ -29,9 +29,8 @@ function Contact(props) {
     };
 
     useEffect(() => {
-        GetData({
+        FindOneByCollection({
             collection: "contactElements",
-            justOne: true,
             parentCallback: handleGetData,
         });
     }, []);

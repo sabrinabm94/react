@@ -5,7 +5,7 @@ import Glyphicon from "../components/Glyphicon/Glyphicon";
 import Text from "../components/Text/Text";
 
 //services
-import  GetData  from "../../services/GetData/GetData";
+import FindOneByCollection from "../../services/FindOneByCollection/FindOneByCollection";
 
 function About(props) {
     const [elements, setElements] = useState([]);
@@ -24,9 +24,8 @@ function About(props) {
     };
 
     useEffect(() => {
-        GetData({
+        FindOneByCollection({
             collection: "aboutElements",
-            justOne: true,
             parentCallback: handleGetData,
         });
     }, []);

@@ -4,7 +4,7 @@ import { React, useState, useEffect } from "react";
 import Carousel from "../components/Carousel/Carousel";
 
 //services
-import  GetData  from "../../services/GetData/GetData";
+import FindAllByCollection from "../../services/FindAllByCollection/FindAllByCollection";
 
 function Costumers(props) {
     const [elements, setElements] = useState([]);
@@ -23,9 +23,8 @@ function Costumers(props) {
     };
 
     useEffect(() => {
-        GetData({
+        FindAllByCollection({
             collection: "costumersElements",
-            justOne: false,
             parentCallback: handleGetData,
         });
     }, []);

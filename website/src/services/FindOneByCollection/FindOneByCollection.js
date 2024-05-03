@@ -1,27 +1,16 @@
 import { React, Component } from "react";
 import { db, databaseRef, get } from "../../init-firebase";
 
-// findAll()
-// findOne()
+const dbRef = databaseRef(db);
 
-function GetByCollection({
-    collection,
-    justOne,
-    parentCallback
-}) {
-    const dbRef = databaseRef(db);
-
+function FindOneByCollection({ collection, parentCallback }) {
     try {
         get(dbRef, collection).then((response) => {
             if (response.exists()) {
                 let elements = response.val()[collection];
                 let elementsArray = [];
 
-                if (
-                    elements &&
-                    elements !== undefined &&
-                    elements !== null
-                ) {
+                if (elements && elements !== undefined && elements !== null) {
                     if (typeof elements === "object") {
                         //loop para objeto
                         elementsArray = Object.keys(elements).map(
@@ -30,10 +19,7 @@ function GetByCollection({
                     }
                     //console.log("Got data ", collection, elementsArray);
 
-                    if (justOne === true) {
-                        elementsArray = elementsArray[elementsArray.length - 1];
-                    }
-
+                    elementsArray = elementsArray[elementsArray.length - 1];
                     //devolve a informação para o componente que renderizou o getData pelo parentCallback
                     parentCallback(elementsArray);
                 }
@@ -46,4 +32,4 @@ function GetByCollection({
     }
 }
 
-export default GetByCollection;
+export default FindOneByCollection;

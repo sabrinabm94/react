@@ -4,7 +4,7 @@ import { React, useState, useEffect } from "react";
 import Text from "../components/Text/Text";
 
 //services
-import  GetData  from "../../services/GetData/GetData";
+import FindOneByCollection from "../../services/FindOneByCollection/FindOneByCollection";
 
 function PageHeader(props) {
     const [elements, setElements] = useState([]);
@@ -23,9 +23,8 @@ function PageHeader(props) {
     };
 
     useEffect(() => {
-        GetData({
+        FindOneByCollection({
             collection: "companyElements",
-            justOne: true,
             parentCallback: handleGetData,
         });
     }, []);

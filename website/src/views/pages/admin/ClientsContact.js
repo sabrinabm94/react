@@ -1,14 +1,14 @@
-import { React, Component } from "react";
+import { React, useState, useEffect } from "react";
 
 //components
 import Painel from "../../components/Painel/Painel";
 
 //services
-import GetData from "../../../services/GetData/GetData";
+import FindAllByCollection from "../../../services/FindAllByCollection/FindAllByCollection";
 
 function ClientsContact(props) {
-    const [elements, setElements] = React.useState([]);
-    const [text, setText] = React.useState("");
+    const [elements, setElements] = useState([]);
+    const [text, setText] = useState("");
 
     const handleGetData = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
@@ -22,13 +22,13 @@ function ClientsContact(props) {
         }
     };
 
-    React.useEffect(() => {
-        GetData({
+    useEffect(() => {
+        FindAllByCollection({
             collection: "clientsContactElements",
-            justOne: false,
             parentCallback: handleGetData,
         });
     }, []);
+
 
     return (
         <section
