@@ -25,11 +25,10 @@ function About(props) {
     };
 
     useEffect(() => {
-        FindAllByCollection({
-            collection: props.collection,
-            parentCallback: handleGetData,
+        FindAllByCollection(props.collection).then((elementArray) => {
+            handleGetData(elementArray);
         });
-    }, []);
+    }, [props.collection]);
 
     return (
         <div
@@ -54,14 +53,7 @@ function About(props) {
                                         key={key}
                                         id={data.id}
                                     >
-                                        <p>
-                                            {
-                                                data[
-                                                props
-                                                    .registerTitleInList
-                                                ]
-                                            }
-                                        </p>
+                                        <p>{data[props.registerTitleInList]}</p>
                                         <Button
                                             className="btn-danger"
                                             id="remove"
@@ -69,12 +61,8 @@ function About(props) {
                                         >
                                             x
                                             <DeleteData
-                                                ref={
-                                                    this.deleteDataComponent
-                                                }
-                                                collection={
-                                                    props.collection
-                                                }
+                                                ref={this.deleteDataComponent}
+                                                collection={props.collection}
                                                 dataId={data.id}
                                             />
                                         </Button>

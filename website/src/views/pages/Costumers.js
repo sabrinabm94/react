@@ -23,17 +23,13 @@ function Costumers(props) {
     };
 
     useEffect(() => {
-        FindAllByCollection({
-            collection: "costumersElements",
-            parentCallback: handleGetData,
+        FindAllByCollection("costumersElements").then((elementArray) => {
+            handleGetData(elementArray);
         });
     }, []);
 
     return (
-        <section
-            id="costumers"
-            className="constumers container-fluid bg-grey"
-        >
+        <section id="costumers" className="constumers container-fluid bg-grey">
             <div className="text-center">
                 <h1 className="title">COSTUMERS</h1>
                 <h2 className="subtitle">What our customers say</h2>

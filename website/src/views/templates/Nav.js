@@ -25,9 +25,8 @@ function Nav(props) {
     };
 
     useEffect(() => {
-        FindAllByCollection({
-            collection: "companyElements",
-            parentCallback: handleGetData,
+        FindAllByCollection("companyElements").then((elementArray) => {
+            handleGetData(elementArray);
         });
     }, []);
 

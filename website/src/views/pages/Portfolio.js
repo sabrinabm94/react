@@ -3,7 +3,6 @@ import { React, useState, useEffect } from "react";
 //components
 import Thumbnail from "../components/Thumbnail/Thumbnail";
 
-
 //services
 import FindAllByCollection from "../../services/FindAllByCollection/FindAllByCollection";
 
@@ -24,17 +23,13 @@ function Portfolio(props) {
     };
 
     useEffect(() => {
-        FindAllByCollection({
-            collection: "portfolioElements",
-            parentCallback: handleGetData,
+        FindAllByCollection("portfolioElements").then((elementArray) => {
+            handleGetData(elementArray);
         });
     }, []);
 
     return (
-        <section
-            id="portfolio"
-            className="portfolio container-fluid bg-grey"
-        >
+        <section id="portfolio" className="portfolio container-fluid bg-grey">
             <div className="text-center">
                 <h1 className="title">PORTFOLIO</h1>
                 <h2 className="subtitle">What we have created</h2>

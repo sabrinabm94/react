@@ -23,9 +23,8 @@ function PageHeader(props) {
     };
 
     useEffect(() => {
-        FindOneByCollection({
-            collection: "companyElements",
-            parentCallback: handleGetData,
+        FindOneByCollection("companyElements").then((elementArray) => {
+            handleGetData(elementArray);
         });
     }, []);
 

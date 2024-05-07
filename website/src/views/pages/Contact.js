@@ -29,9 +29,8 @@ function Contact(props) {
     };
 
     useEffect(() => {
-        FindOneByCollection({
-            collection: "contactElements",
-            parentCallback: handleGetData,
+        FindOneByCollection("contactElements").then((elementArray) => {
+            handleGetData(elementArray);
         });
     }, []);
 
@@ -49,23 +48,17 @@ function Contact(props) {
                         parentCallback={handleBreaklines}
                     />
                     <p>
-                        <Glyphicon name="map-marker" />{" "}
-                        {elements.address}
+                        <Glyphicon name="map-marker" /> {elements.address}
                     </p>
                     <p>
-                        <Glyphicon name="phone" />{" "}
-                        {elements.phone}
+                        <Glyphicon name="phone" /> {elements.phone}
                     </p>
                     <p>
-                        <Glyphicon name="envelope" />{" "}
-                        {elements.email}
+                        <Glyphicon name="envelope" /> {elements.email}
                     </p>
                 </div>
                 <div className="col-sm-7 slideanim slide">
-                    <Form
-                        collection="clientsContactElements"
-                        className="form"
-                    >
+                    <Form collection="clientsContactElements" className="form">
                         <div className="row">
                             <div className="col-sm-6">
                                 <Input
@@ -103,11 +96,7 @@ function Contact(props) {
                     </Form>
                 </div>
             </div>
-            <Picture
-                url={elements.file}
-                className="picture"
-                alt="map"
-            />
+            <Picture url={elements.file} className="picture" alt="map" />
         </section>
     );
 }

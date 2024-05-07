@@ -23,12 +23,10 @@ function ClientsContact(props) {
     };
 
     useEffect(() => {
-        FindAllByCollection({
-            collection: "clientsContactElements",
-            parentCallback: handleGetData,
+        FindAllByCollection("clientsContactElements").then((elementArray) => {
+            handleGetData(elementArray);
         });
     }, []);
-
 
     return (
         <section

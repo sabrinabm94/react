@@ -24,9 +24,8 @@ function About(props) {
     };
 
     useEffect(() => {
-        FindOneByCollection({
-            collection: "aboutElements",
-            parentCallback: handleGetData,
+        FindOneByCollection("aboutElements").then((elementArray) => {
+            handleGetData(elementArray);
         });
     }, []);
 
@@ -37,9 +36,7 @@ function About(props) {
             </div>
             <div className="row">
                 <div className="col-sm-4">
-                    <Glyphicon
-                        name={`${elements.icon} logo slideanim slide`}
-                    />
+                    <Glyphicon name={`${elements.icon} logo slideanim slide`} />
                 </div>
                 <div className="col-sm-8">
                     <h2 className="title">{elements.title}</h2>

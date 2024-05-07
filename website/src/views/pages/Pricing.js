@@ -3,9 +3,8 @@ import { React, useState, useEffect } from "react";
 //components
 import PainelSecondary from "../components/PainelSecondary/PainelSecondary";
 
-
 //services
-import FindAllByCollection from "../../services/FindAllByCollection/FindAllByCollection"
+import FindAllByCollection from "../../services/FindAllByCollection/FindAllByCollection";
 
 function Pricing(props) {
     const [elements, setElements] = useState([]);
@@ -24,9 +23,8 @@ function Pricing(props) {
     };
 
     useEffect(() => {
-        FindAllByCollection({
-            collection: "pricingElements",
-            parentCallback: handleGetData,
+        FindAllByCollection("pricingElements").then((elementArray) => {
+            handleGetData(elementArray);
         });
     }, []);
 

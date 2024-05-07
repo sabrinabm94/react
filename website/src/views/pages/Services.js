@@ -23,9 +23,8 @@ function Services(props) {
     };
 
     useEffect(() => {
-        FindAllByCollection({
-            collection: "servicesElements",
-            parentCallback: handleGetData,
+        FindAllByCollection("servicesElements").then((elementArray) => {
+            handleGetData(elementArray);
         });
     }, []);
 
