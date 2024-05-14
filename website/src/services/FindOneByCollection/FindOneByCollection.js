@@ -1,45 +1,25 @@
-import { React, Component } from "react";
-import { db, databaseRef, get } from "../../init-firebase";
+import FindAllByCollection from "../../services/FindAllByCollection/FindAllByCollection";
 
-const dbRef = databaseRef(db);
-
-//função async ou promise
-// Promise: FindOneByCollection('elementsCollection').then(elementsArray)
-// async: const elementsArray = await FindOneByCollection('elementsCollection')
 function FindOneByCollection(collection) {
-    return new Promise((resolve, reject) => {
-        try {
-            get(dbRef, collection).then((response) => {
-                if (response.exists()) {
-                    let elements = response.val()[collection];
-                    let elementsArray = [];
-
-                    if (
-                        elements &&
-                        elements !== undefined &&
-                        elements !== null
-                    ) {
-                        if (typeof elements === "object") {
-                            //loop para objeto
-                            elementsArray = Object.keys(elements).map(
-                                (key) => elements[key].form
-                            );
-                        }
-                        //console.log("Got data ", collection, elementsArray);
-
-                        const lastElement =
-                            elementsArray[elementsArray.length - 1];
-                        resolve(lastElement);
-                    }
-                } else {
-                    //console.log("No data available ", collection);
-                    resolve(null);
-                }
-            });
-        } catch (error) {
-            reject(error);
-        }
-    });
+    return FindAllByCollection(collection)
+        .then(elements => {
+            return elements[elements.length - 1]
+        })
+        .catch((err) => {
+            console.error(err);
+            // throw new Error();
+            return null;
+        });
 }
+
+// Async: FindLastOneByCollection
+// async function FindLastOneByCollection(collection) {
+//     try {
+//         const elements = await FindAllByCollection(collection)
+//         return elements[elements.length - 1];
+//     } catch(err) {
+//         return null;
+//     }
+// }
 
 export default FindOneByCollection;
