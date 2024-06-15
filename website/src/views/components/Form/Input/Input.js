@@ -1,37 +1,37 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Input extends Component {
-    render() {
-        if (this.props.name) {
-            return (
-                <div className="form-group">
-                    <label htmlFor={this.props.name}>{this.props.name}</label>
-                    <input
-                        type={this.props.type}
-                        className={this.props.className}
-                        name={this.props.name}
-                        id={this.props.id}
-                        placeholder={this.props.placeholder}
-                        required={this.props.required}
-                        data-testid="input-component"
-                    />
-                </div>
-            );
-        } else {
-            return (
-                <div className="form-group">
-                    <input
-                        type={this.props.type}
-                        className={this.props.className}
-                        name={this.props.name}
-                        id={this.props.id}
-                        placeholder={this.props.placeholder}
-                        required={this.props.required}
-                        data-testid="input-component"
-                    />
-                </div>
-            );
-        }
+const Input = (props) => {
+    if (props.name) {
+        //TODO: converter para pattern de composição
+        return (
+            <div className="form-group">
+                <label htmlFor={props.name}>{props.name}</label>
+                <input
+                    type={props.type}
+                    className={props.className}
+                    name={props.name}
+                    id={props.id}
+                    placeholder={props.placeholder}
+                    required={props.required}
+                    data-testid="input-component"
+                />
+            </div>
+        );
+    } else {
+        return (
+            <div className="form-group">
+                <input
+                    type={props.type}
+                    className={props.className}
+                    name={props.name}
+                    id={props.id}
+                    placeholder={props.placeholder}
+                    required={props.required}
+                    data-testid="input-component"
+                />
+            </div>
+        );
     }
-}
+};
+
 export default Input;

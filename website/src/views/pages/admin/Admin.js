@@ -22,10 +22,6 @@ const Admin = ({ isAuthenticated }) => {
     }, [location.pathname]);
 
     useEffect(() => {
-        // console.log("isAuthenticatedCookie ", isAuthenticatedCookie);
-        // if (location.pathname.startsWith("/admin") && isAuthenticatedCookie !== true) {
-        //     navigate("/login");
-        // }
     }, [location.pathname, isAuthenticatedCookie, navigate]);
 
     const checkCookie = (name) => {

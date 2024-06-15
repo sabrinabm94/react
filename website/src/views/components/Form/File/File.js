@@ -1,20 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 
-class File extends Component {
-    render() {
-        return (
-            <div className="form-group">
-                <label htmlFor={this.props.name}></label>
-                <input
-                    type={this.props.type}
-                    name={this.props.name}
-                    accept={this.props.acept}
-                    id={this.props.id}
-                    placeholder={this.props.placeholder}
-                    data-testid="file-component"
-                />
-            </div>
-        );
-    }
-}
+const File = (props) => {
+    //TODO: converter para pattern de composição
+    return (
+        <div className="form-group" data-testid="file-component">
+            <label htmlFor={props.name}></label>
+            <input
+                type={props.type}
+                name={props.name}
+                accept={props.accept}
+                id={props.id}
+                placeholder={props.placeholder}
+            />
+        </div>
+    );
+};
+
 export default File;

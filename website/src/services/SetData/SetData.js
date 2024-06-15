@@ -1,45 +1,25 @@
-import React, { Component } from "react";
-import { db, databaseRef, push } from "../../init-firebase";
+import { db, databaseRef, push, set } from "../../init-firebase";
 
-//components
-import UpdateData from "../UpdateData/UpdateData";
+const SetData = (collection, form) => {
+    return new Promise((resolve, reject) => {
+        if (collection && form) {
+            const newRef = push(databaseRef(db, collection)); // Cria uma nova referência para o nó da coleção
 
-class SetData extends Component {
-    constructor(props) {
-        super(props);
-
-        this.updateDataComponent = React.createRef();
-    }
-
-    handleUpdateData = (collection, form) => {
-        this.updateDataComponent.current.updateData(collection, form);
-    }
-
-    setData(collection, form) {
-        if ((collection !== null && collection !== undefined && collection !== "")
-            && (form !== null && form !== undefined && form !== "")) {
-            push(databaseRef(db, collection + "/"), {
-                form,
-            }).then((response) => {
-                //update form id in database
-                let responseId = response.key;
-                if (responseId && responseId !== undefined && responseId != null) {
-                    form.id = responseId;
-                    this.handleUpdateData(collection, form);
-                }
-
-                alert("Form sent!");
-            });
+            // Salva os dados no nó com o ID gerado automaticamente
+            set(newRef, form)
+                .then(() => {
+                    // Adiciona o ID gerado ao objeto form
+                    form.id = newRef.key;
+                    resolve(form); // Resolve a Promise com os dados completos, incluindo o ID
+                    alert("Sucess!");
+                })
+                .catch(error => {
+                    reject(error); // Rejeita a Promise em caso de erro no salvamento
+                });
+        } else {
+            reject(new Error("Invalid collection or form data"));
         }
-    }
-
-    render() {
-        return (
-            <div>
-                <UpdateData ref={this.updateDataComponent} />
-            </div>
-        );
-    }
-}
+    });
+};
 
 export default SetData;

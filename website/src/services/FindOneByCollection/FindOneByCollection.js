@@ -5,10 +5,9 @@ function FindOneByCollection(collection) {
         .then(elements => {
             return elements[elements.length - 1]
         })
-        .catch((err) => {
-            console.error(err);
-            // throw new Error();
-            return null;
+        .catch((error) => {
+            console.error(error);
+            throw new Error("Error: ", error);
         });
 }
 

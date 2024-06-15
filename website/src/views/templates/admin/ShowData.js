@@ -1,78 +1,78 @@
-import { React, useEffect, useState } from "react";
-
-//components
+import React, { useEffect, useState } from "react";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
 import DeleteData from "../../../services/DeleteData/DeleteData";
-
-//services
 import FindAllByCollection from "../../../services/FindAllByCollection/FindAllByCollection";
+import Alert from "../../components/Alert/Alert";
 
-function About(props) {
+function ShowData({ collection, registerTitleInList }) {
     const [elements, setElements] = useState([]);
-    const [text, setText] = useState("");
 
-    const handleGetData = (data) => {
-        if (data && data !== null && data !== undefined && data !== "") {
-            setElements(data);
-        }
+    // Função para buscar dados
+    const handleGetData = () => {
+        return new Promise((resolve, reject) => {
+            FindAllByCollection(collection)
+                .then(data => {
+                    setElements(data);
+                    resolve();
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                    reject(error);
+                });
+        });
     };
 
-    const handleBreaklines = (data) => {
-        if (data && data !== null && data !== undefined && data !== "") {
-            setText(data);
-        }
+    // Função para deletar dados
+    const handleDeleteData = (id) => {
+        return new Promise((resolve, reject) => {
+            DeleteData(collection, id)
+                .then(() => {
+                    setElements(prevElements => prevElements.filter(element => element.id !== id)); //atualização de estado para novos elementos existentes atualizando a tela automaticamente
+                    resolve();
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
     };
 
     useEffect(() => {
-        FindAllByCollection(props.collection).then((elementArray) => {
-            handleGetData(elementArray);
-        });
-    }, [props.collection]);
+        handleGetData().catch(error => console.error("Error in useEffect handleGetData:", error));
+    }, [collection]);
 
     return (
-        <div
-            id="admin-show-data"
-            className="container-fluid text-center bg-grey"
-        >
+        <div id="admin-show-data" className="container-fluid text-center bg-grey">
             <section className="section show-data">
                 <h2 className="subtitle">Delete</h2>
                 <Dropdown
                     className="show-data-dropdown"
                     id="show-data-dropdown"
                     buttonText="Register list"
+                    onOpen={handleGetData} // Atualiza os valores quando é aberto
                 >
                     <>
-                        {elements !== null &&
-                            elements !== undefined &&
-                            elements.length > 0 &&
-                            elements.map((data, key) => {
-                                return (
-                                    <li
-                                        className="dropdown-item"
-                                        key={key}
-                                        id={data.id}
+                        {elements && elements.length > 0 ? (
+                            elements.map((element) => (
+                                <li className="show-data-dropdown-item" key={element.id} id={element.id}>
+                                    <p>{element[registerTitleInList]}</p>
+                                    <Button
+                                        className="btn-danger"
+                                        onClick={() => handleDeleteData(element.id)}
                                     >
-                                        <p>{data[props.registerTitleInList]}</p>
-                                        <Button
-                                            className="btn-danger"
-                                            id="remove"
-                                            onClick={this.handleDeleteData}
-                                        >
-                                            x
-                                            <DeleteData
-                                                ref={this.deleteDataComponent}
-                                                collection={props.collection}
-                                                dataId={data.id}
-                                            />
-                                        </Button>
-                                    </li>
-                                );
-                            })}
+                                        x
+                                    </Button>
+                                </li>
+                            ))
+                        ) : (
+                            <li className="dropdown-item">No data available</li>
+                        )}
                     </>
                 </Dropdown>
+                <Alert />
             </section>
         </div>
     );
 }
-export default About;
+
+export default ShowData;

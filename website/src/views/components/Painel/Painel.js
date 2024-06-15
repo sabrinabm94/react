@@ -1,44 +1,42 @@
-import React, { Component } from "react";
+import { React, useState } from "react";
 
 //components
 import DeleteData from "../../../services/DeleteData/DeleteData";
 
-class Painel extends Component {
-    constructor(props) {
-        super(props);
-
-        this.deleteDataComponent = React.createRef();
+function Painel(props) {
+    const [elements, setElements] = useState([]);
+    
+    const handleDeleteData = (id) => {
+        DeleteData(props.collection, id).then(function(response) {
+            setElements(prevElements => prevElements.filter(element => element.id !== id)); //para atualização da página
+        }).catch(function(error) {
+            console.log("handle error: ", error);
+        });
     }
 
-    handleDeleteData = () => {
-        this.deleteDataComponent.current.deleteData(this.props.collection, this.props.dataId);
-    }
-
-    render() {
-        return (
-            <>
-            <div className="panel panel-default text-center" id={this.props.dataId} data-testid="painel-component">
+    return (
+        <>
+            <div className="panel panel-default text-center" id={props.dataId} data-testid="painel-component">
                 <div className="row">
                     <div className="col-sm-2">
-                        <DeleteData ref={this.deleteDataComponent} collection={this.props.collection} dataId={this.props.dataId} />
-                        <span className="remove" id="remove" onClick={this.handleDeleteData}>x</span>
+                        <span className="remove" id="remove" onClick={handleDeleteData}>x</span>
                     </div>
                 </div>
                 <div className="panel-heading">
-                    <h2 className="title">{this.props.title}</h2>
+                    <h2 className="title">{props.title}</h2>
                 </div>
                 <div className="panel-body">
                     <p
                         className="content"
-                        dangerouslySetInnerHTML={{ __html: this.props.content }}
+                        dangerouslySetInnerHTML={{ __html: props.content }}
                     />
                 </div>
                 <div className="panel-footer">
-                    <h3 className="subtitle">{this.props.subtitle}</h3>
+                    <h3 className="subtitle">{props.subtitle}</h3>
                 </div>
             </div>
-            </>
-        )
-    }
+        </>
+    );
 }
 export default Painel;
+

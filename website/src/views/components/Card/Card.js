@@ -1,30 +1,25 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 //components
 import Glyphicon from "../Glyphicon/Glyphicon";
 import Text from "../Text/Text";
 
-class Card extends Component {
-    constructor(props) {
-        super(props);
+const Card = (props) => {
+    const [text, setText] = useState("");
 
-        this.state = {
-            text: ""
-        };
-    }
-
-    handleBreaklines = (data) => {
+    const handleBreaklines = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
-            this.setState({ text: data })
+            setText(data);
         }
-    }
+    };
 
-    render() {
-        return (<div className="card" data-testid="card-component">
-            <Glyphicon name={this.props.iconName} />
-            <h2 className="title">{this.props.title}</h2>
-            <Text className="subtitle" text={this.props.subtitle} parentCallback={this.handleBreaklines} />
-        </div>)
-    }
-}
+    return (
+        <div className="card" data-testid="card-component">
+            <Glyphicon name={props.iconName} />
+            <h2 className="title">{props.title}</h2>
+            <Text className="subtitle" text={props.subtitle} parentCallback={handleBreaklines} />
+        </div>
+    );
+};
+
 export default Card;

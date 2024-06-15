@@ -1,132 +1,93 @@
-import React, { Component } from "react";
-import {
-    ref,
-    storage,
-    uploadBytes,
-    getDownloadURL,
-} from "../../../../init-firebase";
-
-//components
+import React, { useState } from "react";
+import { ref, storage, uploadBytes, getDownloadURL } from "../../../../init-firebase";
 import SetData from "../../../../services/SetData/SetData";
 
-class Form extends Component {
-    constructor(props) {
-        super(props);
+function Form({ collection, className, children }) {
+    const [elements, setElements] = useState([]);
 
-        this.setDataComponent = React.createRef();
-    }
+    const sendData = (event) => {
+        event.preventDefault(); // Evita o envio padrão do formulário
 
-    handleSetData = (collection, form) => {
-        this.setDataComponent.current.setData(collection, form);
-    }
+        if (!collection) return;
 
-    sendData(collection) {
-        // eslint-disable-next-line no-restricted-globals
-        let e = event;
-        e.preventDefault();
+        const form = {};
+        const formElements = event.target.elements; // Acessa os elementos do formulário corretamente
 
-        if (collection) {
-            console.log(collection);
-            let form = {};
-            for (const key in e.target) {
-                let element = e.target[Number(key)];
-
-                if (element !== null && element !== "" && element !== undefined) {
-                    let name = element.name;
-                    let value = element.value;
-
-                    if (
-                        name !== null &&
-                        name !== "" &&
-                        name !== undefined &&
-                        value !== null &&
-                        value !== "" &&
-                        value !== undefined
-                    ) {
-                        if (element.type === "file") {
-                            form[name] = element.files;
-                        } else {
-                            form[name] = value;
-                        }
-                    }
-                }
-            }
-            if (form) {
-                try {
-                    if (form.file) {
-                        //formulario com arquivo
-                        return this.storageFile(collection, form);
-                    } else {
-                        //formulario sem arquivo
-                        return this.sendForm(collection, form);
-                    }
-                } catch (error) {
-                    return error;
+        for (let element of formElements) {
+            if (element && element.name) {
+                if (element.type === "file" && element.files.length > 0) {
+                    form[element.name] = element.files[0]; // Guarda o arquivo (apenas o primeiro)
+                } else {
+                    form[element.name] = element.value; // Guarda o valor dos campos de texto
                 }
             }
         }
-    }
 
-    storageFile(collection, form) {
-        if (collection && form && form.file.length > 0) {
-            return new Promise((resolve) => {
-                Object.values(form.file).map((file) => {
-                    //todo tratativa de erros para quando não for uma lista de arquivos
-                    form.file = file;
-                    this.sendFile(collection, form);
-                    return resolve();
-                });
+        handleDataSubmission(collection, form, event)
+            .catch(error => {
+                console.error("Error in sendData:", error);
             });
-        }
-    }
+    };
 
-    sendFile(collection, form) {
-        if (collection && form) {
-            let fileRef = ref(storage, collection + "/" + form.file.name);
+    const handleDataSubmission = (collection, form, event) => {
+        return new Promise((resolve, reject) => {
+            if (form.file) {
+                handleFileUpload(collection, form)
+                    .then(() => handleSetData(collection, form, event))
+                    .then(resolve)
+                    .catch(reject);
+            } else {
+                handleSetData(collection, form, event)
+                    .then(resolve)
+                    .catch(reject);
+            }
+        });
+    };
 
-            uploadBytes(fileRef, form.file).then((response) => {
-                return this.getFileUrl(collection, form);
-            });
-        }
-    }
+    const handleFileUpload = (collection, form) => {
+        return new Promise((resolve, reject) => {
+            if (form.file) {
+                const file = form.file;
+                const fileRef = ref(storage, `${collection}/${file.name}`);
 
-    getFileUrl(collection, form) {
-        if (collection && form) {
-            return this.getStorageUrl(collection, form);
-        }
-    }
+                uploadBytes(fileRef, file)
+                    .then(() => getDownloadURL(fileRef))
+                    .then(url => {
+                        form.fileUrl = url; // Guarda apenas a URL do arquivo
+                        delete form.file; // Remove o campo file do objeto form
+                        resolve();
+                    })
+                    .catch(reject);
+            } else {
+                resolve(); // Caso não haja arquivo, apenas resolve
+            }
+        });
+    };
 
-    getStorageUrl(collection, form) {
-        if (collection && form) {
-            getDownloadURL(ref(storage, collection + "/" + form.file.name))
-                .then((url) => {
-                    form.file = url;
-                    return this.sendForm(collection, form);
+    const handleSetData = (collection, form, event) => {
+        return new Promise((resolve, reject) => {
+            SetData(collection, form)
+                .then(response => {
+                    // Atualiza os elementos com o ID e os novos dados
+                    setElements(prevElements => [...prevElements, { id: response, ...form }]);
+                    event.target.reset(); // Limpa o formulário após o envio bem-sucedido
+                    resolve(response);
                 })
-                .catch((error) => {
-                    return error;
-                });
-        }
-    }
+                .catch(reject);
+        });
+    };
 
-    sendForm(collection, form) {
-        if (collection !== null && collection !== undefined && form !== null && form !== undefined) {
-            this.handleSetData(collection, form);
-        }
-    }
-
-    render() {
-        return (
-            <form
-                onSubmit={() => this.sendData(this.props.collection)}
-                className={this.props.className}
-                id={this.props.className}
-                data-testid="form-component"
-            >
-                <SetData ref={this.setDataComponent} />
-                {this.props.children}
-            </form>
-        );
-    }
+    //TODO: converter para pattern de composição
+    return (
+        <form
+            onSubmit={sendData}
+            className={className}
+            id={className}
+            data-testid="form-component"
+        >
+            {children}
+        </form>
+    );
 }
+
 export default Form;

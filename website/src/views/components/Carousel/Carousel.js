@@ -1,27 +1,20 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 //components
 import Glyphicon from "../Glyphicon/Glyphicon";
 import Text from "../Text/Text";
 
-class Carousel extends Component {
-    constructor(props) {
-        super(props);
+const Carousel = (props) => {
+    const [text, setText] = useState("");
 
-        this.state = {
-            text: "",
-        };
-    }
-
-    handleBreaklines = (data) => {
+    const handleBreaklines = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
-            this.setState({ text: data });
+            setText(data);
         }
     };
 
-    render() {
-        return (
-            <>
+    return (
+        <>
             <div
                 id="myCarousel"
                 className="carousel slide text-center"
@@ -29,62 +22,26 @@ class Carousel extends Component {
                 data-testid="carousel-component"
             >
                 <ol className="carousel-indicators">
-                    <>
-                        {this.props.elements.map((data, key) => {
-                            let target = null;
-
-                            if (key === 0) {
-                                target = (
-                                    <li
-                                        data-target="#myCarousel"
-                                        data-slide-to={data.number}
-                                        className="active"
-                                        key={key}
-                                    ></li>
-                                );
-                            } else {
-                                target = (
-                                    <li
-                                        data-target="#myCarousel"
-                                        data-slide-to={data.number}
-                                        key={key}
-                                    ></li>
-                                );
-                            }
-
-                            return target;
-                        })}
-                    </>
+                    {props.elements.map((data, key) => (
+                        <li
+                            data-target="#myCarousel"
+                            data-slide-to={data.number}
+                            className={key === 0 ? "active" : ""}
+                            key={key}
+                        ></li>
+                    ))}
                 </ol>
                 <div className="carousel-inner" role="listbox">
-                    {this.props.elements.map((data, key) => {
-                        let item = null;
-
-                        if (key === 0) {
-                            item = (
-                                <div className="item active" key={key}>
-                                    <h4>{data.title}</h4>
-                                    <Text
-                                        className="subtitle"
-                                        text={data.subtitle}
-                                        parentCallback={this.handleBreaklines}
-                                    />
-                                </div>
-                            );
-                        } else {
-                            item = (
-                                <div className="item" key={key}>
-                                    <h4>{data.title}</h4>
-                                    <Text
-                                        className="subtitle"
-                                        text={data.subtitle}
-                                        parentCallback={this.handleBreaklines}
-                                    />
-                                </div>
-                            );
-                        }
-                        return item;
-                    })}
+                    {props.elements.map((data, key) => (
+                        <div className={`item ${key === 0 ? "active" : ""}`} key={key}>
+                            <h4>{data.title}</h4>
+                            <Text
+                                className="subtitle"
+                                text={data.subtitle}
+                                parentCallback={handleBreaklines}
+                            />
+                        </div>
+                    ))}
                 </div>
                 <a
                     className="left carousel-control"
@@ -105,9 +62,8 @@ class Carousel extends Component {
                     <span className="sr-only">Next</span>
                 </a>
             </div>
-            </>
-        );
-    }
-}
+        </>
+    );
+};
 
 export default Carousel;

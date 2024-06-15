@@ -23,7 +23,6 @@ const RegisterOrLoginUser = (props) => {
     };
 
     useEffect(() => {
-        console.log("isAuthenticated " + isAuthenticated);
         if (isAuthenticated === true) {
             setCookie("isAuthenticated", isAuthenticated.toString(), 3600);
         } 
@@ -97,7 +96,6 @@ const RegisterOrLoginUser = (props) => {
                                 })
                                 .catch((err) => {
                                     updateIsAuthenticated(false);
-                                    console.log("Erro: ", err);
                                     alert(err);
                                 });
                         } else if (action === "register") {

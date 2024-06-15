@@ -1,46 +1,36 @@
-import { React, Component } from "react";
-
-//components
+import React, { useState } from "react";
 import Button from "../Button/Button";
 import Text from "../Text/Text";
 
-class PainelSecondary extends Component {
-    constructor(props) {
-        super(props);
+const PainelSecondary = (props) => {
+    const [text, setText] = useState("");
 
-        this.state = {
-            text: ""
-        };
-    }
-
-    handleBreaklines = (data) => {
+    const handleBreaklines = (data) => {
         if (data && data !== null && data !== undefined && data !== "") {
-            this.setState({ text: data })
+            setText(data);
         }
-    }
+    };
 
-    render() {
-        return (
-            <div className="panel panel-default text-center" data-testid="painelsecondary-component">
-                <div className="panel-heading">
-                    <h2 className="title">{this.props.title}</h2>
-                </div>
-                <div className="panel-body">
-                    <Text className="content" text={this.props.description} parentCallback={this.handleBreaklines} />
-                </div>
-                <div className="panel-footer">
-                    <h3 className="subtitle">{this.props.value}</h3>
-                    <a className="link" href={this.props.link}>
-                        <Button
-                            text="Sign Up"
-                            type="submit"
-                            disabled={true}
-                        />
-                    </a>
-                </div>
+    return (
+        <div className="panel panel-default text-center" data-testid="painel-secondary-component">
+            <div className="panel-heading">
+                <h2 className="title">{props.title}</h2>
             </div>
-        );
-    }
-}
+            <div className="panel-body">
+                <Text className="content" text={props.description} parentCallback={handleBreaklines} />
+            </div>
+            <div className="panel-footer">
+                <h3 className="subtitle">{props.value}</h3>
+                <a className="link" href={props.link}>
+                    <Button
+                        text="Sign Up"
+                        type="submit"
+                        disabled={true}
+                    />
+                </a>
+            </div>
+        </div>
+    );
+};
 
 export default PainelSecondary;

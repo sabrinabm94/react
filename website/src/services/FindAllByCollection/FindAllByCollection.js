@@ -1,38 +1,34 @@
-import { React, Component } from "react";
-import { db, databaseRef, get } from "../../init-firebase";
+import { db, databaseRef, child, get } from "../../init-firebase";
 
 const dbRef = databaseRef(db);
 
 function FindAllByCollection(collection) {
     return new Promise((resolve, reject) => {
         try {
-            get(dbRef, collection).then((response) => {
-                if (response.exists()) {
-                    let elements = response.val()[collection];
-                    let elementsArray = [];
+            const collectionRef = child(dbRef, collection);
 
-                    if (
-                        elements &&
-                        elements !== undefined &&
-                        elements !== null
-                    ) {
-                        if (typeof elements === "object") {
-                            //loop para objeto
-                            elementsArray = Object.keys(elements).map(
-                                (key) => elements[key].form
-                            );
-                        }
-                        //console.log("Got data ", collection, elementsArray);
+            get(collectionRef).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const elementsArray = [];
 
-                        resolve(elementsArray);
-                    }
+                    // Mapeia cada chave do objeto de dados
+                    Object.keys(data).forEach((index, key) => {
+                        // Acessa diretamente o campo 'form' dentro de data[key]
+                        const element = {
+                            id: index,
+                            ...data[index],
+                        };
+                        elementsArray.push(element); // Adiciona o elemento ao array
+                    });
+
+                    resolve(elementsArray); // Resolve a promise com o array de elementos
                 } else {
-                    //console.log("No data available ", collection);
-                    resolve([]);
+                    resolve([]); // Resolve com um array vazio se não houver dados
                 }
             });
         } catch (error) {
-            reject(error);
+            reject(error); // Rejeita a promise se houver um erro
         }
     });
 }

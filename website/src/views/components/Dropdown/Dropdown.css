@@ -1,0 +1,9 @@
+.dropdown-component .dropdown-component-items {
+    list-style: none;
+}
+
+.dropdown-component p,
+.dropdown-component button {
+    display: inline-block;
+    margin-right: 10px;
+}

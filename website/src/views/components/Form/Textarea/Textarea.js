@@ -1,33 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Textarea extends Component {
-    render() {
-        if (this.props.name) {
-            return (
-                <div className="form-group">
-                    <label htmlFor={this.props.name}>{this.props.name}</label>
-                    <textarea
-                        className={this.props.className}
-                        name={this.props.name}
-                        id={this.props.id}
-                        placeholder={this.props.placeholder}
-                        data-testid="textarea-component"
-                    ></textarea>
-                </div>
-            );
-        } else {
-            return (
-                <div className="form-group">
-                    <textarea
-                        className={this.props.className}
-                        name={this.props.name}
-                        id={this.props.id}
-                        placeholder={this.props.placeholder}
-                        data-testid="textarea-component"
-                    ></textarea>
-                </div>
-            );
-        }
+const Textarea = (props) => {
+    if (props.name) {
+        //TODO: converter para pattern de composição
+        return (
+            <div className="form-group">
+                <label htmlFor={props.name}>{props.name}</label>
+                <textarea
+                    className={props.className}
+                    name={props.name}
+                    id={props.id}
+                    placeholder={props.placeholder}
+                    data-testid="textarea-component"
+                ></textarea>
+            </div>
+        );
+    } else {
+        return (
+            //TODO: converter para pattern de composição
+            <div className="form-group">
+                <textarea
+                    className={props.className}
+                    name={props.name}
+                    id={props.id}
+                    placeholder={props.placeholder}
+                    data-testid="textarea-component"
+                ></textarea>
+            </div>
+        );
     }
-}
+};
+
 export default Textarea;

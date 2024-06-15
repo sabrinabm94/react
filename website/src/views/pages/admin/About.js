@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { React, useState, useEffect } from "react";
 
 //components
 import Input from "../../components/Form/Input/Input";
@@ -6,11 +6,11 @@ import Textarea from "../../components/Form/Textarea/Textarea";
 import Button from "../../components/Button/Button";
 import Form from "../../components/Form/Form/Form";
 
-//templates
-import ShowData from "../../../views/templates/admin/ShowData";
+//services
+import FindOneByCollection from "../../../services/FindOneByCollection/FindOneByCollection";
 
-class About extends Component {
-    icons = [
+function About(props) {
+    const icons = [
         "asterisk",
         "plus",
         "minus",
@@ -269,74 +269,84 @@ class About extends Component {
         "menu-down",
         "menu-up",
     ];
-    render() {
-        return (
-            <div
-                id="admin-about"
-                className="container-fluid text-center bg-grey"
-            >
-                <section className="section admin-about">
-                    <h1 className="title">Admin configuration:</h1>
-                    <h2 className="title">Company</h2>
-                    <ShowData
-                        collection="aboutElements"
-                        registerTitleInList="title"
-                    />
-                    <h2 className="subtitle">New register</h2>
-                    <Form collection="aboutElements" className="form">
-                        <div className="row">
-                            <div className="col-6 col-sm-6">
-                                <Input
-                                    type="text"
-                                    className="input"
-                                    name="title"
-                                    placeholder="Title"
-                                />
-                            </div>
-                            <div className="col-6 col-sm-6">
-                                <Textarea
-                                    className="input"
-                                    name="content"
-                                    placeholder="Content"
-                                />
-                            </div>
-                            <div className="col-6 col-sm-6">
-                                <select
-                                    className="select"
-                                    aria-labelledby="select"
-                                    name="icon"
-                                >
-                                    <>
-                                        {this.icons !== null &&
-                                            this.icons !== undefined &&
-                                            this.icons.length > 0 &&
-                                            this.icons.map((data, key) => {
-                                                return (
-                                                    <option
-                                                        value={data}
-                                                        className="dropdown-item"
-                                                        key={key}
-                                                        id={key}
-                                                    >
-                                                        {data}
-                                                    </option>
-                                                );
-                                            })}
-                                    </>
-                                </select>
-                            </div>
-                            <div className="col-12 col-sm-12">
-                                <Button
-                                    type="submit"
-                                    className="btn-primary"
-                                    text="Submit"
-                                />
-                            </div>
+
+    const [elements, setElements] = useState([]);
+
+    const handleGetData = (data) => {
+        if (data && data !== null && data !== undefined && data !== "") {
+            setElements(data);
+        }
+    };
+
+    useEffect(() => {
+        FindOneByCollection("aboutElements").then((elementArray) => {
+            handleGetData(elementArray);
+        });
+    }, []);
+
+    return (
+        <div
+            id="admin-about"
+            className="container-fluid text-center bg-grey"
+        >
+            <section className="section admin-about">
+                <h1 className="title">Admin configuration:</h1>
+                <h2 className="title">Company</h2>
+                <h2 className="subtitle">New register</h2>
+                <Form collection="aboutElements" className="form">
+                    <div className="row">
+                        <div className="col-6 col-sm-6">
+                            <Input
+                                type="text"
+                                className="input"
+                                name="title"
+                                placeholder="Title"
+                            />
                         </div>
-                    </Form>
-                </section>
-            </div>
-        );
-    }
+                        <div className="col-6 col-sm-6">
+                            <Textarea
+                                className="input"
+                                name="content"
+                                placeholder="Content"
+                            />
+                        </div>
+                        <div className="col-6 col-sm-6">
+                            <select
+                                className="select"
+                                aria-labelledby="select"
+                                name="icon"
+                            >
+                                <>
+                                    {this.icons !== null &&
+                                        this.icons !== undefined &&
+                                        this.icons.length > 0 &&
+                                        this.icons.map((data, key) => {
+                                            return (
+                                                <option
+                                                    value={data}
+                                                    className="dropdown-item"
+                                                    key={key}
+                                                    id={key}
+                                                >
+                                                    {data}
+                                                </option>
+                                            );
+                                        })}
+                                </>
+                            </select>
+                        </div>
+                        <div className="col-12 col-sm-12">
+                            <Button
+                                type="submit"
+                                className="btn-primary"
+                                text="Submit"
+                            />
+                        </div>
+                    </div>
+                </Form>
+            </section>
+        </div>
+    );
 }
+
 export default About;

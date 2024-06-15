@@ -20,7 +20,6 @@ const Nav = () => {
             .then(() => {
                 setIsAuthenticated(false); 
                 setCookie("isAuthenticated", "false", 3600); // Define como falso ao fazer logout
-                console.log("Saindo: ", auth);
                 alert("Saindo...");
                 navigate("/login");
             })
