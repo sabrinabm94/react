@@ -4,6 +4,8 @@ A repository to ReactJs projects.
 
 [Website](https://github.com/sabrinabm94/react/tree/main/website)
 
+---
+
 # Contact
 
 Sabrina B.
