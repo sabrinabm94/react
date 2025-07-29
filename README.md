@@ -10,7 +10,7 @@ A repository to ReactJs projects.
 
 - More about me
 
-[![About me](https://github.com/sabrinabm94/about/blob/main/ABOUT.md)
+[About me](https://github.com/sabrinabm94/about/blob/main/ABOUT.md)
 
 - See my portfolio!
 
